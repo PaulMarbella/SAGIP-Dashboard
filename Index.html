@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sagip | Dashboard</title>
+
+  <!-- Bootstrap CSS (CDN version) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div class="container-fluid px-0">
+    <!-- Top bar for mobile -->
+    <div class="d-md-none mobile-sidebar py-2 px-3 shadow-sm d-flex justify-content-between align-items-center">
+      <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+      <a class="nav-link p-0" href="index.html">
+        <img src="./assets/images/Logo.png" alt="SagipResearch Logo" style="max-height: 50px;" />
+      </a>
+    </div>
+
+    <!-- Mobile Offcanvas Sidebar -->
+    <div class="offcanvas mobile-sidebar offcanvas-start d-md-none" id="mobileSidebar">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column justify-content-between min-vh-100 px-3 pt-2 pb-4">
+        <nav>
+          <ul class="nav flex-column gap-3">
+            <li><button href="pages/hourly.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-hourglass"></i> HOURLY</button></li>
+            <li><button href="pages/daily.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-clock"></i> DAILY</button></li>
+            <li><button href="pages/messages.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-chat"></i> MESSAGES</button></li>
+            <li><button href="pages/map.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-cloud"></i> RADAR</button></li>
+          </ul>
+        </nav>
+        <div class="text-center mt-5 mb-3 border-top pt-3">
+          <p class="fs-6 fw-bold mb-1" id="phTimeMobile"></p>
+          <div class="d-flex flex-column align-items-center">
+            <img src="./assets/images/Philippine logo.png" width="40" alt="Philippine Logo" class="mb-1" />
+            <h2 class="fs-6 fw-bold mb-0">Philippine</h2>
+            <h2 class="fs-6 mb-0">Time Zone</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <!-- Desktop Sidebar -->
+      <aside class="d-none d-md-flex col-2 sidebar shadow p-3 flex-column justify-content-between min-vh-100 ">
+        <div class="top-nav">
+          <a href="index.html" class="nav-link p-0 mb-4">
+            <img src="./assets/images/Logo.png" class="img-fluid mx-auto" style="max-width: 205px;" />
+          </a>
+          <nav>
+            <ul class="nav flex-column gap-4">
+              <li><button  class="nav-page d-flex align-items-center gap-2 " onclick="loadPage('hourly')"><i class="bi bi-hourglass"></i> HOURLY</li>
+              <li><button  class="nav-page d-flex align-items-center gap-2 " onclick="loadPage('daily')"><i class="bi bi-clock"></i> DAILY</button></li>
+              <li><button  class="nav-page d-flex align-items-center gap-2 " onclick="loadPage('message')"><i class="bi bi-chat"></i> MESSAGES</li>
+              <li><button  class="nav-page d-flex align-items-center gap-2 " onclick="loadPage('map')"><i class="bi bi-cloud"></i> RADAR</li>
+            </ul>
+          </nav>
+        </div>
+        <div class="text-center border-top pt-3">
+          <p class="fs-6 fw-bold mb-1" id="phTime"></p>
+          <div class="d-flex flex-column align-items-center">
+            <img src="./assets/images/Philippine logo.png" width="60" class="mb-2" />
+            <h5 class="fw-bold mb-0">Philippine</h5>
+            <small class="text-muted">Time Zone</small>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="col-12 p-4 main-content" id="main-content">
+        <div class="shadow p-3 mb-4 text-center">
+          <h2 class="main-title">Home</h2>
+        </div>
+
+        <!-- Main Page/ Home Page content  -->
+        <div class="container py-5">
+    <h2 class="mb-4 text-center text-primary">SAGIG DASHBOARD</h2>
+
+    <div class="row g-4">
+
+      <!-- Heat Index Card -->
+      <div class="col-md-6">
+        <div class="card shadow-sm border-success">
+          <div class="card-body">
+            <h5 class="card-title text-success">Heat Index Temperature</h5>
+            <h1 class="display-4 fw-bold">
+              <!-- <?php echo isset($heatIndex) ? $heatIndex . '°C' : 'Loading...'; ?> -->
+            </h1>
+            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Water Level Card -->
+      <div class="col-md-6">
+        <div class="card shadow-sm border-primary">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Water Level</h5>
+            <h1 class="display-4 fw-bold">
+              <!-- <?php echo isset($waterLevel) ? $waterLevel . ' m' : 'Loading...'; ?> -->
+            </h1>
+            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-12 mt-5">
+        <div class="card shadow-sm border-success">
+          <div class="card-body">
+            <h5 class="card-title text-danger">Map</h5>
+            <h1 class="display-4 fw-bold">
+              <!-- <?php echo isset($heatIndex) ? $heatIndex . '°C' : 'Loading...'; ?> -->
+            </h1>
+            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
+          </div>
+        </div>
+      </div>
+  </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+</html>
