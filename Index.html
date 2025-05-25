@@ -31,12 +31,13 @@
       </div>
       <div class="offcanvas-body d-flex flex-column justify-content-between min-vh-100 px-3 pt-2 pb-4">
         <nav>
-          <ul class="nav flex-column gap-3">
-            <li><button href="pages/hourly.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-hourglass"></i> HOURLY</button></li>
-            <li><button href="pages/daily.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-clock"></i> DAILY</button></li>
-            <li><button href="pages/messages.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-chat"></i> MESSAGES</button></li>
-            <li><button href="pages/map.html" class="nav-link d-flex align-items-center gap-2"><i class="bi bi-cloud"></i> RADAR</button></li>
-          </ul>
+      <ul class="nav flex-column gap-3">
+        <li><button class="nav-page d-flex align-items-center gap-2" onclick="loadPage('hourly')"><i class="bi bi-hourglass"></i> HOURLY</button></li>
+        <li><button class="nav-page d-flex align-items-center gap-2" onclick="loadPage('daily')"><i class="bi bi-clock"></i> DAILY</button></li>
+        <li><button class="nav-page d-flex align-items-center gap-2" onclick="loadPage('message')"><i class="bi bi-chat"></i> MESSAGES</button></li>
+        <li><button class="nav-page d-flex align-items-center gap-2" onclick="loadPage('map')"><i class="bi bi-cloud"></i> RADAR</button></li>
+      </ul>
+
         </nav>
         <div class="text-center mt-5 mb-3 border-top pt-3">
           <p class="fs-6 fw-bold mb-1" id="phTimeMobile"></p>
@@ -51,7 +52,7 @@
 
     <div class="d-flex">
       <!-- Desktop Sidebar -->
-      <aside class="d-none d-md-flex col-2 sidebar shadow p-3 flex-column justify-content-between min-vh-100 ">
+      <aside class="d-none d-md-flex col-2 sidebar shadow p-3 flex-column justify-content-between min-vh-100 h-100">
         <div class="top-nav">
           <a href="index.html" class="nav-link p-0 mb-4">
             <img src="./assets/images/Logo.png" class="img-fluid mx-auto" style="max-width: 205px;" />
@@ -76,13 +77,13 @@
       </aside>
 
       <!-- Main Content -->
-      <main class="col-12 p-4 main-content" id="main-content">
+      <main class="col p-4 main-content" id="main-content">
         <div class="shadow p-3 mb-4 text-center">
           <h2 class="main-title">Home</h2>
         </div>
 
         <!-- Main Page/ Home Page content  -->
-        <div class="container py-5">
+        <div class="py-3">
     <h2 class="mb-4 text-center text-primary">SAGIG DASHBOARD</h2>
 
     <div class="row g-4">
