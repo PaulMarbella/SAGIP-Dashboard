@@ -48,8 +48,12 @@ body{
     padding: 20px;
 }
 .sidebar,.mobile-sidebar,.topbar-mobile {
-    background-color: #4B548B;
+    background-color: #4B548B !important;
 }
+.offcanvas.mobile-sidebar {
+  transition: none !important; /* Disable unwanted transition */
+}
+
 .nav-page{
     color: white;
     text-overflow: ellipsis;
@@ -67,9 +71,10 @@ body{
 .main-title {
     color: #4B548B;
 }
-.mobile-sidebar .nav-page:hover a {
-    font-weight: bold;
-    color: white !important;
+
+.mobile-sidebar .nav-page{
+    font-size: 1.5em;
+    margin-top: 1em;
 }
 .nav button:hover {
     font-weight: bold;
