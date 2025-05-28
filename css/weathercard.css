@@ -37,7 +37,28 @@
   padding: 20px;
   background-color: #4B548B;
 }
+
+
 @media (max-width: 1000px) {
+    .weather-card h6, .weather-card h5 {
+        font-size: 15px;
+    }
+
+        .weather-card img {
+            width: 200px;
+            padding-left: 20px;
+        }
+
+        .weather-card p {
+            font-size: 1em;
+            margin-right: 22px;
+        }
+        .weather-card{
+            margin-bottom: 2rem;
+        }
+}
+
+@media (max-width: 1200px) {
     .weather-card h6, .weather-card h5 {
         font-size: 15px;
     }

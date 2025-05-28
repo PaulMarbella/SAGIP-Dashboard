@@ -37,14 +37,26 @@ function loadPage(pageName) {
 }
 
 // searchBar
-  document.getElementById("searchBar").addEventListener("keyup", function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll("#dataTable tbody tr");
+  // document.getElementById("searchBar").addEventListener("keyup", function () {
+  //   const filter = this.value.toLowerCase();
+  //   const rows = document.querySelectorAll("#dataTable tbody tr");
 
-    rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      row.style.display = text.includes(filter) ? "" : "none";
-    });
+  //   rows.forEach(row => {
+  //     const text = row.textContent.toLowerCase();
+  //     row.style.display = text.includes(filter) ? "" : "none";
+  //   });
+  // });
+
+
+  // splash
+   window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.getElementById("splash-screen").style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById("splash-screen").style.display = "none";
+        document.getElementById("app").style.display = "block";
+      }, 500); 
+    }, 10000); 
   });
 
 
