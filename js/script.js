@@ -28,24 +28,34 @@ function loadPage(pageName) {
       return res.text();
     })
     .then(html => {
-      document.getElementById("main-content").innerHTML = html;
+      const mainContent = document.getElementById("main-content");
+
+      // Extract scripts
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+
+      // Move all script tags out of HTML
+      const scripts = tempDiv.querySelectorAll("script");
+      scripts.forEach(script => {
+        const newScript = document.createElement("script");
+        if (script.src) {
+          newScript.src = script.src;
+          newScript.async = script.async;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.body.appendChild(newScript);
+        script.remove(); // remove from tempDiv to avoid duplication
+      });
+
+      // Then inject the remaining HTML (without scripts)
+      mainContent.innerHTML = tempDiv.innerHTML;
     })
     .catch(error => {
       document.getElementById("main-content").innerHTML = "<p>Error loading content.</p>";
       console.error(error);
     });
 }
-
-// searchBar
-  // document.getElementById("searchBar").addEventListener("keyup", function () {
-  //   const filter = this.value.toLowerCase();
-  //   const rows = document.querySelectorAll("#dataTable tbody tr");
-
-  //   rows.forEach(row => {
-  //     const text = row.textContent.toLowerCase();
-  //     row.style.display = text.includes(filter) ? "" : "none";
-  //   });
-  // });
 
 
   // splash
