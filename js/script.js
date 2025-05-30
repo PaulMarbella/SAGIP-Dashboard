@@ -1,23 +1,21 @@
 //Philipine Time
-function updateTime() {
-    const now = new Date();
-    const options = { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    const phTime = now.toLocaleTimeString('en-US', options);
-    document.getElementById("phTime").innerText = phTime;
-    document.getElementById("phTimeMobile").innerText = phTime;
-}
-setInterval(updateTime, 1000);
-updateTime();
+// function updateTime() {
+//     const now = new Date();
+//     const options = { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+//     const phTime = now.toLocaleTimeString('en-US', options);
+//     document.getElementById("phTime").innerText = phTime;
+//     document.getElementById("phTimeMobile").innerText = phTime;
+// }
+// setInterval(updateTime, 1000);
+// updateTime();
 
 
 //Render pages
 function loadPage(pageName) {
   const pagePaths = {
-    home: "Home.html",
-    hourly: "./pages/hourly/hourly.html",
-    daily: "./pages/Daily/daily.html",
-    map: "./pages/Map/map.html",
-    message: "./pages/Message/message.html"
+    commandCenter: "/pages/Command-Center/command-center.html",
+    deviceManager: "/pages/Device-Manager/device-manager.html",
+    analyticalMapping: "/pages/Analytical-Mapping/analytical-mapping.html"
   };
 
   const filePath = pagePaths[pageName];
@@ -45,7 +43,7 @@ function loadPage(pageName) {
           newScript.textContent = script.textContent;
         }
         document.body.appendChild(newScript);
-        script.remove(); // remove from tempDiv to avoid duplication
+        script.remove();
       });
 
       // Then inject the remaining HTML (without scripts)
@@ -59,16 +57,49 @@ function loadPage(pageName) {
 
 
   // splash
-   window.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      document.getElementById("splash-screen").style.opacity = 0;
-      setTimeout(() => {
-        document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("app").style.display = "block";
-      }, 500); 
-    }, 10000); 
-  });
+  //  window.addEventListener("DOMContentLoaded", () => {
+  //   setTimeout(() => {
+  //     document.getElementById("splash-screen").style.opacity = 0;
+  //     setTimeout(() => {
+  //       document.getElementById("splash-screen").style.display = "none";
+  //       document.getElementById("app").style.display = "block";
+  //     }, 500); 
+  //   }, 10000); 
+  // });
 
+  //name
+  document.addEventListener('DOMContentLoaded', () => {
+    const storedName = localStorage.getItem('userName');
+    const role = localStorage.getItem('role');
+  
+    const nameSpans = ['displayName1', 'displayName2'];
+    const greetingIds = ['userGreeting1', 'userGreeting2'];
+  
+    if (storedName && role === 'user') {
+      nameSpans.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = storedName;
+      });
+      greetingIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = ''; 
+      });
+    } else if (role === 'admin') {
+      greetingIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+  });
+  
+  
+  
+  
+
+
+  
+  
+  
 
 
 
