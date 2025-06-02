@@ -19,6 +19,7 @@ html {
     display: flex !important;
   }
 }
+/* index */
 
 
 html {
@@ -39,7 +40,6 @@ body{
 .sidebar {
     width: 100%;
     height: 80px;
-    background-color: #4B548B;
     color: black;
     display: flex;
     justify-content: space-between;
@@ -95,15 +95,13 @@ body{
 .nav{
     margin-left: 1em;
 }
-.nav-page a:focus,
-  .nav-page a:active {
-   color: #000 !important;
-   font-weight: bold;
-  }
-
+.nav-page.active {
+  color: rgb(182,0,1);
+  font-weight: bold;
+}
 
 .nav-page:hover i {
-    color: black !important;
+    color: rgb(182,0,1);
     transform: scale(1.2);
     transition: transform 0.2s ease;
 }

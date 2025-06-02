@@ -12,6 +12,9 @@
 <body>
 
 
+  <div id="weather-loading" style="text-align:center; font-weight:bold;">Fetching data...</div>
+<div id="weatherapi-weather-widget-3"></div>
+
     <div id="weatherapi-weather-widget-3">
     </div>
     <script type='text/javascript' src='https://www.weatherapi.com/weather/widget.ashx?loc=1857963&wid=3&tu=2&div=weatherapi-weather-widget-3' async>
@@ -22,39 +25,37 @@
   
 
 
-<div class="container mt-5">
-  <input type="text" id="search-table" class="form-control mb-5 border border-primary searhBar" placeholder="Search table...">
+<div class="container d-flex justify-content-between gap-5 mt-5 w-100">
+  
+  <div class="col-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Tools</h5>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-secondary d-flex gap-1 mb-3 col-12"><i class="bi bi-arrow-clockwise"></i>Refresh Data</button>
+        <button class="btn btn-success d-flex gap-1 col-12"><i class="bi bi-download"></i>Download CSV</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="col-md-10">
+    <input type="text" id="search-table" class="form-control mb-5 border border-primary searhBar" placeholder="Search table...">
 
-  <table class="table table-hover" id="data-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Heat Index</th>
-        <th>Water Level</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Monday</td>
-        <td>Sunny</td>
-        <td>35°C</td>
-        <td>Low</td>
-      </tr>
-      <tr>
-        <td>Tuesday</td>
-        <td>Cloudy</td>
-        <td>33°C</td>
-        <td>Medium</td>
-      </tr>
-      <tr>
-        <td>Wednesday</td>
-        <td>Rainy</td>
-        <td>30°C</td>
-        <td>High</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-hover" id="data-table">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Temperature</th>
+          <th>Condition</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
 </div>
 
 

@@ -56,17 +56,16 @@ function loadPage(pageName) {
 }
 
 
-  // splash
-  //  window.addEventListener("DOMContentLoaded", () => {
-  //   setTimeout(() => {
-  //     document.getElementById("splash-screen").style.opacity = 0;
-  //     setTimeout(() => {
-  //       document.getElementById("splash-screen").style.display = "none";
-  //       document.getElementById("app").style.display = "block";
-  //     }, 500); 
-  //   }, 10000); 
-  // });
+const links = document.querySelectorAll('.nav-page');
 
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  
   //name
   document.addEventListener('DOMContentLoaded', () => {
     const storedName = localStorage.getItem('userName');

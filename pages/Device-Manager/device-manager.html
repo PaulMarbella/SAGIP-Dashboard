@@ -11,14 +11,18 @@
 
 
     <div class="d-flex justify-content-between gap-3">
-        <div class="card ml-auto">
-            <label for="date">Search</label>
+        <div class="card ml-auto p-2">
+            <label for="date" class="card-header mb-3">Search</label>
             <input type="date" class="mb-2">
-            <select>
+            <select class="mb-2">
                 <option value="">Humidity</option>
                 <option value="">Heat Index</option>
                 <option value="">Water Level</option>
             </select>
+            <input type="number" class="mb-2" placeholder="Heat Index">
+            <input type="number" class="mb-2" placeholder="Water Level">
+            <button class="btn btn-danger mt-2">Search</button>
+
         </div>
         <div class="border border-5" style="width: 90%; max-width: 1000px; height: 600px;">
             <iframe 
@@ -27,6 +31,9 @@
                 src="https://embed.windy.com/embed2.html?lat=14.5995&lon=120.9842&zoom=5&level=surface&overlay=radar&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=14.5995&detailLon=120.9842&metricWind=default&metricTemp=default&radarRange=-1" 
                 frameborder="0">
             </iframe>
+        </div>
+        <div>
+            Legend:
         </div>
     </div>
 </body>
