@@ -50,3 +50,35 @@ const checkInterval = setInterval(() => {
       document.querySelector("#data-table tbody").innerHTML = row;
     });
 
+
+
+  async function fetchWeatherData() {
+  const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
+  return await response.json();
+  }
+
+  async function refreshTable() {
+    const tbody = document.querySelector("#data-table tbody");
+    tbody.innerHTML = '<tr><td colspan="3" class="text-center">Loading...</td></tr>';
+
+    const data = await fetchWeatherData();
+
+    tbody.innerHTML = "";
+
+    data.forEach(item => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.city}</td>
+        <td>${item.temperature}</td>
+        <td>${item.condition}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+
+  document.getElementById("refresh").addEventListener("click", refreshTable);
+
+  window.addEventListener("DOMContentLoaded", refreshTable);
+
+
