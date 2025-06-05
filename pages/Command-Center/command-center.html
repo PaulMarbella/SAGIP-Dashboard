@@ -1,65 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/weathercard.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+  <meta charset="UTF-8" />
+  <title>Simple Local Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
+<body class="p-4">
 
+<div class="container">
+  <h3 class="mb-4">Message</h3>
 
-  <div id="weather-loading" style="text-align:center; font-weight:bold;">Fetching data...</div>
-<div id="weatherapi-weather-widget-3"></div>
-
-    <div id="weatherapi-weather-widget-3">
-    </div>
-    <script type='text/javascript' src='https://www.weatherapi.com/weather/widget.ashx?loc=1857963&wid=3&tu=2&div=weatherapi-weather-widget-3' async>
-    </script>
-    <noscript>
-        <a href="https://www.weatherapi.com/weather/q/paranaque-1857963" alt="Hour by hour Paranaque weather">10 day hour by hour Paranaque weather</a>
-    </noscript>
-  
-
-
-<div class="container d-flex justify-content-between gap-5 mt-5 w-100">
-  
-  <div class="col-md-2">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Tools</h5>
-      </div>
-      <div class="card-body">
-        <button class="btn btn-secondary d-flex gap-1 mb-3 col-12" id="refresh"><i class="bi bi-arrow-clockwise"></i>Refresh Data</button>
-        <button class="btn btn-success d-flex gap-1 col-12"><i class="bi bi-download"></i>Download CSV</button>
-      </div>
-    </div>
+  <div id="messageList" class="border border-3 p-3 mb-3 bg-light rounded" style="height: 300px; overflow-y: auto;">
+    <!-- Messages will appear here -->
   </div>
-  
-  
-  
-  <div class="col-md-10">
-    <input type="text" id="search-table" class="form-control mb-5 border border-primary searhBar" placeholder="Search table...">
 
-    <table class="table table-hover" id="data-table">
-      <thead>
-        <tr>
-          <th>City</th>
-          <th>Temperature</th>
-          <th>Condition</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <div class="input-group">
+    <input type="text" id="messageInput" class="form-control" placeholder="Type your message">
+    <button id="sendMessage" class="btn btn-danger">Send</button>
   </div>
-  
 </div>
 
+ <div class="container mt-5">
+    <h2 class="mb-4 text-dark">📞 Emergency Contact Directory</h2>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/weather.js"></script>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th>Barangay</th>
+            <th>Contact Person</th>
+            <th>Role</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Baclaran</td>
+            <td>Juan Dela Cruz</td>
+            <td>Brgy. Captain</td>
+            <td>0917-123-4567</td>
+            <td>
+              <a href="tel:09171234567" class="btn btn-success btn-sm me-1">Call</a>
+              <a href="sms:09171234567" class="btn btn-outline-primary btn-sm">Message</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Don Galo</td>
+            <td>Maria Santos</td>
+            <td>Rescue Head</td>
+            <td>0998-234-5678</td>
+            <td>
+              <a href="tel:09982345678" class="btn btn-success btn-sm me-1">Call</a>
+              <a href="sms:09982345678" class="btn btn-outline-primary btn-sm">Message</a>
+            </td>
+          </tr>
+          <tr>
+            <td>LGU Hotline</td>
+            <td>Central Office</td>
+            <td>Emergency Center</td>
+            <td>(02) 8888-8888</td>
+            <td>
+              <a href="tel:0288888888" class="btn btn-success btn-sm me-1">Call</a>
+              <a href="sms:0288888888" class="btn btn-outline-primary btn-sm">Message</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+<script src="/js/message.js"></script>
 </body>
 </html>

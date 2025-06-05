@@ -11,28 +11,6 @@ document.getElementById('search-table').addEventListener('input', function () {
 
 
 
-// Loading
-document.getElementById('weather-loading').style.display = 'block';
-
-
-const existingScript = document.querySelector('script[src*="weather/widget.ashx"]');
-if (!existingScript) {
-  const script = document.createElement('script');
-  script.src = 'https://www.weatherapi.com/weather/widget.ashx?loc=1857963&wid=3&tu=2&div=weatherapi-weather-widget-3';
-  script.async = true;
-  document.body.appendChild(script);
-}
-
-const checkInterval = setInterval(() => {
-  const widget = document.getElementById('weatherapi-weather-widget-3');
-
-  if (widget && widget.innerHTML.trim().length > 0) {
-    document.getElementById('weather-loading').style.display = 'none';
-    clearInterval(checkInterval);
-  }
-}, 300); 
-
-
 // API TABLE
   const apiKey = "a1dc0d26e76c4ce0896155500252405";
   const city = "Paranaque";
