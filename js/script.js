@@ -15,7 +15,8 @@ function loadPage(pageName) {
   const pagePaths = {
     commandCenter: "/pages/Command-Center/command-center.html",
     deviceManager: "/pages/Device-Manager/device-manager.html",
-    analyticalMapping: "/pages/Analytical-Mapping/analytical-mapping.html"
+    analyticalMapping: "/pages/Analytical-Mapping/analytical-mapping.html",
+    arcGIS: "/pages/arcGIS/ArcGIS.html"
   };
 
   const filePath = pagePaths[pageName];

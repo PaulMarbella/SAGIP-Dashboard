@@ -39,7 +39,7 @@ submitAdminPassword.addEventListener('click', function () {
   if (password === correctPassword) {
     localStorage.setItem('role', 'admin');
     localStorage.removeItem('userName'); 
-    window.location.href = './pages/Home/home.html'; 
+    window.location.href = './pages/Home/home-admin.html'; 
   } else {
     alert('Incorrect password!');
   }
