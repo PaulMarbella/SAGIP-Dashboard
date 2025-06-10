@@ -168,6 +168,19 @@ body{
       margin-left: 10px;
     }
 
+    .title-welcome{
+      margin-left: 1em;
+    }
+
+    .logo-title {
+      vertical-align: middle;   
+      height: 7.5em;            
+      display: inline-block;
+      margin: -5em 0 -4.5em -1em ;
+    }
+    
+    
+
 
 
 
