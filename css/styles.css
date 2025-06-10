@@ -16,7 +16,7 @@ html {
 }
 
 
-@media (max-width: 810px) {
+@media (max-width: 920px) {
   .d-md-flex {
     display: none !important;
   }
@@ -67,7 +67,6 @@ body{
 .footer {
   background: #eee;
   padding: 10px 20px;
-  text-align: center;
   margin-top: auto;
 }
 .weather-widget-container {

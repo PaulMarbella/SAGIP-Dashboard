@@ -1,13 +1,19 @@
-//Philipine Time
-// function updateTime() {
-//     const now = new Date();
-//     const options = { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-//     const phTime = now.toLocaleTimeString('en-US', options);
-//     document.getElementById("phTime").innerText = phTime;
-//     document.getElementById("phTimeMobile").innerText = phTime;
-// }
-// setInterval(updateTime, 1000);
-// updateTime();
+// Philipine Time
+function updateDate() {
+    const now = new Date();
+    const options = { 
+        timeZone: 'Asia/Manila', 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    const phDate = now.toLocaleDateString('en-US', options);
+    document.getElementById("phTime").innerText = phDate;
+}
+
+setInterval(updateDate, 1000 * 60); // Update every minute
+updateDate();
 
 
 //Render pages
@@ -75,6 +81,7 @@ const links = document.querySelectorAll('.nav-page');
   
     const nameSpans = ['displayName1', 'displayName2'];
     const greetingIds = ['userGreeting1', 'userGreeting2'];
+
   
     if (storedName && role === 'user') {
       nameSpans.forEach(id => {
@@ -92,6 +99,28 @@ const links = document.querySelectorAll('.nav-page');
       });
     }
   });
+
+
+
+//  fetch('https://www.pagasa.dost.gov.ph/rss.xml')
+//   .then(response => response.text())
+//   .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+//   .then(data => {
+//     const items = data.querySelectorAll("item");
+//     const list = document.getElementById("pagasa-weather");
+//     for (let i = 0; i < 5; i++) {
+//       const item = items[i];
+//       const title = item.querySelector("title").textContent;
+//       const link = item.querySelector("link").textContent;
+//       const li = document.createElement("li");
+//       li.innerHTML = `<a href="${link}" target="_blank">${title}</a>`;
+//       list.appendChild(li);
+//     }
+//   })
+//   .catch(err => {
+//     document.getElementById("pagasa-weather").innerText = "Failed to load PAGASA weather feed.";
+//     console.error(err);
+//   });
   
   
   
