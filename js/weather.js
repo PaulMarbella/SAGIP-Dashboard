@@ -10,7 +10,7 @@ document.getElementById('search-table').addEventListener('input', function () {
 });
 
 // API and caching
-let API_URL = "https://www.meteosource.com/api/v1/free/point?lat=14.501079546668159&lon=120.99492357355032&sections=daily&language=en&units=metric&key=uii5s91ll0p9ee245t8tg57hkwjbll6u874l2kgm";
+let API_URL_Weather = "https://www.meteosource.com/api/v1/free/point?lat=14.501079546668159&lon=120.99492357355032&sections=daily&language=en&units=metric&key=uii5s91ll0p9ee245t8tg57hkwjbll6u874l2kgm";
 const CACHE_KEY = "weatherCache";
 const CACHE_EXPIRY_HOURS = 6;
 
@@ -25,7 +25,7 @@ async function fetchWeather(forceRefresh = false) {
   }
 
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL_Weather);
     const data = await response.json();
     localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: now }));
     displayWeather(data);
@@ -94,3 +94,17 @@ document.getElementById("download-csv").addEventListener("click", function () {
     link.click();
     document.body.removeChild(link);
   });
+
+  const spinner = document.getElementById("loading-spinner");
+
+  // Wait for the widget script to finish loading
+  const widgetScript = document.querySelector("script[src*='widget.ashx']");
+  
+  widgetScript.addEventListener("load", () => {
+    spinner.style.display = "none";
+  });
+
+  // Optional: Hide spinner after timeout if widget never loads
+  setTimeout(() => {
+    spinner.style.display = "none";
+  }, 8000); // 10 seconds max wait

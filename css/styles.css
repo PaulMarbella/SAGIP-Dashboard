@@ -152,6 +152,22 @@ body{
       color: rgb(182,0,1);
     }
 
+    .camera{
+      width: 50em;
+      height: 20em;
+      margin: 4em auto;
+      border: 1px solid black;
+    }
+
+    .red-dot{
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: red;
+      margin-top: 20px;
+      margin-left: 10px;
+    }
+
 
 
 
