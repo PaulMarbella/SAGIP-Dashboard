@@ -62,6 +62,16 @@ function loadPage(pageName) {
     return;
   }
 
+  if (window.chartInstance) {
+    window.chartInstance.destroy();
+    window.chartInstance = null;
+  }
+
+  if (window.mapView) {
+    window.mapView.destroy();
+    window.mapView = null;
+  }
+
   // ✅ Otherwise, load the selected page
   const filePath = pagePaths[pageName];
 
@@ -71,28 +81,36 @@ function loadPage(pageName) {
       return res.text();
     })
     .then(html => {
-      const mainContent = document.getElementById("main-content");
+  const mainContent = document.getElementById("main-content");
 
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = html;
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
 
-      const scripts = tempDiv.querySelectorAll("script");
-      scripts.forEach(script => {
-        const newScript = document.createElement("script");
-        if (script.src) {
-          newScript.src = script.src;
-          newScript.async = script.async;
-        } else {
-          newScript.textContent = script.textContent;
-        }
-        document.body.appendChild(newScript);
-        script.remove();
-      });
+  // Insert the HTML first
+  mainContent.innerHTML = tempDiv.innerHTML;
 
-      mainContent.innerHTML = tempDiv.innerHTML;
+  // Then re-attach the scripts so they execute after DOM is ready
+  const scripts = tempDiv.querySelectorAll("script");
+  scripts.forEach(script => {
+  const newScript = document.createElement("script");
 
-      
-    })
+  if (script.src) {
+    newScript.src = script.src;
+    newScript.async = false;
+  } else {
+    newScript.textContent = script.textContent;
+  }
+
+  // Detect whether to inject into head or body
+  if (script.type === "module" || script.getAttribute('data-head') === "true") {
+    document.head.appendChild(newScript);
+  } else {
+    document.body.appendChild(newScript);
+  }
+});
+
+
+})
     .catch(error => {
       document.getElementById("main-content").innerHTML = "<p>Error loading content.</p>";
       console.error(error);
@@ -138,6 +156,9 @@ const links = document.querySelectorAll('.nav-page');
       });
     }
   });
+
+
+
 
 
 

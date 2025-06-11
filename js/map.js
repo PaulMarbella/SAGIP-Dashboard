@@ -6,9 +6,8 @@ require([
   "esri/widgets/Legend"
 ], function (Map, MapView, Graphic, FeatureLayer, Legend) {
 
-  const map = new Map({
-    basemap: "satellite"
-  });
+  // --- Map and View Initialization ---
+  const map = new Map({ basemap: "satellite" });
 
   const view = new MapView({
     container: "viewDiv",
@@ -17,37 +16,16 @@ require([
     zoom: 16
   });
 
-  // Define symbols for different types of points
-  const sagipDot = {
-    type: "simple-marker",
-    color: "yellow",
-    size: 12,
-    outline: { color: "white", width: 1 }
-  };
+  // --- Symbols ---
+  const sagipDot = { type: "simple-marker", color: "yellow", size: 12, outline: { color: "white", width: 1 } };
+  const waterDot = { type: "simple-marker", color: "blue", size: 12, outline: { color: "white", width: 1 } };
+  const monitorDot = { type: "simple-marker", color: "black", size: 12, outline: { color: "white", width: 1 } };
+  const evacuationDot = { type: "simple-marker", color: "green", size: 12, outline: { color: "white", width: 1 } };
 
-  const waterDot = {
-    type: "simple-marker",
-    color: "blue",
-    size: 12,
-    outline: { color: "white", width: 1 }
-  };
-
-  const monitorDot = {
-    type: "simple-marker",
-    color: "black",
-    size: 12,
-    outline: { color: "white", width: 1 }
-  };
-
-
-  // Define the graphics with their geometries, symbols, and attributes
+  // --- Monitoring Station Graphics ---
   const graphics = [
     {
-      geometry: {
-        type: "point",
-        longitude: 120.99483138606303,
-        latitude: 14.50057820761905
-      },
+      geometry: { type: "point", longitude: 120.99483138606303, latitude: 14.50057820761905 },
       symbol: sagipDot,
       attributes: {
         ObjectID: 1,
@@ -56,11 +34,7 @@ require([
       }
     },
     {
-      geometry: {
-        type: "point",
-        longitude: 120.99435748129429,
-        latitude: 14.500685498214198
-      },
+      geometry: { type: "point", longitude: 120.99435748129429, latitude: 14.500685498214198 },
       symbol: waterDot,
       attributes: {
         ObjectID: 2,
@@ -69,128 +43,62 @@ require([
       }
     },
     {
-      geometry: {
-        type: "point",
-        longitude: 120.9949742865779,
-        latitude: 14.50076314269143
-      },
+      geometry: { type: "point", longitude: 120.9949742865779, latitude: 14.50076314269143 },
       symbol: monitorDot,
       attributes: {
         ObjectID: 3,
         Name: "SAGIP Monitor",
         Description: "Focused monitoring - Dashboard"
       }
-    },
+    }
   ];
 
-  // Create the FeatureLayer from the graphics
-  let stationLayer = new FeatureLayer({
-    source: graphics.map(g => new Graphic({
-      geometry: g.geometry,
-      symbol: g.symbol,
-      attributes: g.attributes,
-      popupTemplate: {
-        title: "{Name}",
-        content: "{Description}"
-      }
-    })),
-    fields: [
-      { name: "ObjectID", type: "oid" },
-      { name: "Name", type: "string" },
-      { name: "Description", type: "string" }
-    ],
-    objectIdField: "ObjectID",
-    geometryType: "point",
-    spatialReference: { wkid: 4326 },
-    renderer: {
-      type: "unique-value",
-      field: "Name",
-      uniqueValueInfos: [
-        { value: "SAGIP Station", symbol: sagipDot, label: "SAGIP Station" },
-        { value: "Water Level Monitoring", symbol: waterDot, label: "Water Level Monitoring" },
-        { value: "SAGIP Monitor", symbol: monitorDot, label: "SAGIP Monitor" },
-      ]
-    }
-  });
-
+  // --- Station FeatureLayer ---
+  let stationLayer = createStationLayer(graphics);
   map.add(stationLayer);
 
-  // Initialize the Legend widget
+  // --- Legend ---
   const legend = new Legend({
     view: view,
-    layerInfos: [{ layer: stationLayer, title: "Legend:" }]
+    layerInfos: [{ layer: stationLayer, title: "Monitoring Stations" }]
   });
-
   view.ui.add(legend, "bottom-left");
 
-  // Heat Index Zones
-  const heatZonePolygon = {
-    type: "polygon",
-    rings: [
-      [120.993, 14.499],
-      [120.996, 14.499],
-      [120.996, 14.502],
-      [120.993, 14.502],
-      [120.993, 14.499]
-    ]
-  };
-
-  const heatZoneSymbol = {
-    type: "simple-fill",
-    color: [255, 69, 0, 0.2], // semi-transparent orange-red
-    outline: {
-      color: [255, 0, 0],
-      width: 2
-    }
-  };
-
+  // --- Heat Index Zones ---
   const heatZoneGraphic = new Graphic({
-    geometry: heatZonePolygon,
-    symbol: heatZoneSymbol,
-    attributes: {
-      zone: "Extreme Caution Heat Index"
+    geometry: {
+      type: "polygon",
+      rings: [[120.993, 14.499], [120.996, 14.499], [120.996, 14.502], [120.993, 14.502], [120.993, 14.499]]
     },
+    symbol: {
+      type: "simple-fill",
+      color: [255, 69, 0, 0.2],
+      outline: { color: [255, 0, 0], width: 2 }
+    },
+    attributes: { zone: "Extreme Caution Heat Index" },
     popupTemplate: {
       title: "{zone}",
       content: "Heat index in this area is between 90–105°F (32–41°C). Stay hydrated and avoid long exposure."
     }
   });
 
-  const heatZonePolygon2 = {
-    type: "polygon",
-    rings: [
-      [120.991, 14.503],
-      [120.993, 14.503],
-      [120.993, 14.505],
-      [120.991, 14.505],
-      [120.991, 14.503]
-    ]
-  };
-
-  const heatZoneSymbol2 = {
-    type: "simple-fill",
-    color: [255, 69, 0, 0.2], // semi-transparent orange-red
-    outline: {
-      color: [255, 0, 0],
-      width: 2
-    }
-  };
-
   const heatZoneGraphic2 = new Graphic({
-    geometry: heatZonePolygon2,
-    symbol: heatZoneSymbol2,
-    attributes: {
-      zone: "Caution Heat Index"
+    geometry: {
+      type: "polygon",
+      rings: [[120.991, 14.503], [120.993, 14.503], [120.993, 14.505], [120.991, 14.505], [120.991, 14.503]]
     },
+    symbol: {
+      type: "simple-fill",
+      color: [255, 69, 0, 0.2],
+      outline: { color: [255, 0, 0], width: 2 }
+    },
+    attributes: { zone: "Caution Heat Index" },
     popupTemplate: {
       title: "{zone}",
       content: "Heat index in this area is between 80–90°F (27–32°C). Stay cool and drink water frequently."
     }
   });
 
-  // Add heat zone graphics to the view's graphics collection
-
-  // Toggle Heat Index Visibility
   let heatZoneVisible = true;
   document.getElementById("toggleHeatZone").addEventListener("click", function () {
     if (heatZoneVisible) {
@@ -205,26 +113,26 @@ require([
     heatZoneVisible = !heatZoneVisible;
   });
 
-  // Filter dropdown functionality
+  // --- Station Filter Dropdown ---
   document.getElementById("stationFilter").addEventListener("change", function () {
     const selected = this.value;
-  
-    // Remove current layer before re-adding (if needed)
     map.remove(stationLayer);
-  
+
     if (selected === "Hide All") {
-      // Do nothing (no layer added), just clear legend
       legend.layerInfos = [];
       return;
     }
-  
-    const filtered = selected === "All"
-      ? graphics
-      : graphics.filter(g => g.attributes.Name === selected);
-  
-    // Recreate stationLayer with filtered graphics
-    stationLayer = new FeatureLayer({
-      source: filtered.map(g => new Graphic({
+
+    const filtered = selected === "All" ? graphics : graphics.filter(g => g.attributes.Name === selected);
+    stationLayer = createStationLayer(filtered);
+    map.add(stationLayer);
+
+    legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
+  });
+
+  function createStationLayer(sourceGraphics) {
+    return new FeatureLayer({
+      source: sourceGraphics.map(g => new Graphic({
         geometry: g.geometry,
         symbol: g.symbol,
         attributes: g.attributes,
@@ -251,111 +159,85 @@ require([
         ]
       }
     });
-  
-    map.add(stationLayer);
-    legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
+  }
+
+  // --- Evacuation Zones ---
+  const evacuationGraphics = [
+    {
+      geometry: { type: "point", longitude: 120.99064047179301, latitude: 14.50293698857822 },
+      symbol: evacuationDot,
+      attributes: {
+        ObjectID: 101,
+        Name: "Don Galo Sports Complex (Don Galo Gym)",
+        Description: "Sport's Gym"
+      }
+    },
+    {
+      geometry: { type: "point", longitude: 120.99483138606303, latitude: 14.50057820761905 },
+      symbol: evacuationDot,
+      attributes: {
+        ObjectID: 102,
+        Name: "PUP Paranaque Campus",
+        Description: "School Campus PUP"
+      }
+    },
+    {
+      geometry: { type: "point", longitude: 120.9911370196004, latitude: 14.505239949916819 },
+      symbol: evacuationDot,
+      attributes: {
+        ObjectID: 103,
+        Name: "Don Galo Barangay Hall",
+        Description: "Enrique M Factor Rd, Paranaque City, Metro Manila"
+      }
+    }
+  ];
+
+  let evacuationLayer = null;
+  let evacuationVisible = false;
+
+  document.getElementById("toggleEvacuationZone").addEventListener("click", function () {
+    if (!evacuationVisible) {
+      evacuationLayer = new FeatureLayer({
+        source: evacuationGraphics.map(g => new Graphic({
+          geometry: g.geometry,
+          symbol: g.symbol,
+          attributes: g.attributes,
+          popupTemplate: {
+            title: "{Name}",
+            content: "{Description}"
+          }
+        })),
+        fields: [
+          { name: "ObjectID", type: "oid" },
+          { name: "Name", type: "string" },
+          { name: "Description", type: "string" }
+        ],
+        objectIdField: "ObjectID",
+        geometryType: "point",
+        spatialReference: { wkid: 4326 },
+        renderer: {
+          type: "unique-value",
+          field: "Name",
+          uniqueValueInfos: evacuationGraphics.map(g => ({
+            value: g.attributes.Name,
+            symbol: evacuationDot,
+            label: g.attributes.Name
+          }))
+        }
+      });
+
+      map.add(evacuationLayer);
+      legend.layerInfos = [{ layer: evacuationLayer, title: "Evacuation Zones" }];
+      map.remove(stationLayer);
+      document.getElementById("stationFilter").value = "All";
+      evacuationVisible = true;
+
+    } else {
+      map.remove(evacuationLayer);
+      legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
+      map.add(stationLayer);
+      evacuationVisible = false;
+    }
   });
 
-
-  //Evacuation Zonessss
-  let evacuationLayer = null;
-let evacuationVisible = false;
-
-const evacuationDot = {
-  type: "simple-marker",
-  color: "green",
-  size: 12,
-  outline: { color: "white", width: 1 }
-};
-
-const evacuationGraphics = [
-  {
-    geometry: {
-      type: "point",
-      longitude: 120.99064047179301,   
-      latitude: 14.50293698857822
-    },
-    symbol: evacuationDot,
-    attributes: {
-      ObjectID: 101,
-      Name: "Don Galo Sports Complex (Don Galo Gym)",
-      Description: "Sport's Gym"
-    }
-  },
-  {
-    geometry: {
-      type: "point",
-      longitude: 120.99483138606303,
-      latitude: 14.50057820761905
-    },
-    symbol: evacuationDot,
-    attributes: {
-      ObjectID: 102,
-      Name: "PUP Paranaque Campus",
-      Description: "School Campus PUP"
-    }
-  },
-  {
-    geometry: {
-      type: "point",
-      longitude: 120.9911370196004,   
-      latitude: 14.505239949916819
-    },
-    symbol: evacuationDot,
-    attributes: {
-      ObjectID: 103,
-      Name: "Don Galo Barangay Hall",
-      Description: "Enrique M Factor Rd, Paranaque City, Metro Manila"
-    }
-  }
-];
-
-document.getElementById("toggleEvacuationZone").addEventListener("click", function () {
-  if (!evacuationVisible) {
-    evacuationLayer = new FeatureLayer({
-      source: evacuationGraphics.map(g => new Graphic({
-        geometry: g.geometry,
-        symbol: g.symbol,
-        attributes: g.attributes,
-        popupTemplate: {
-          title: "{Name}",
-          content: "{Description}"
-        }
-      })),
-      fields: [
-        { name: "ObjectID", type: "oid" },
-        { name: "Name", type: "string" },
-        { name: "Description", type: "string" }
-      ],
-      objectIdField: "ObjectID",
-      geometryType: "point",
-      spatialReference: { wkid: 4326 },
-      renderer: {
-        type: "unique-value",
-        field: "Name",
-        uniqueValueInfos: evacuationGraphics.map(g => ({
-          value: g.attributes.Name,
-          symbol: evacuationDot,
-          label: g.attributes.Name
-        }))
-      }
-    });
-
-    map.add(evacuationLayer);
-    legend.layerInfos = [{ layer: evacuationLayer, title: "Evacuation Zones" }];
-    evacuationVisible = true;
-
-    // Optional: remove monitoring stations and clear dropdown
-    map.remove(stationLayer);
-    document.getElementById("stationFilter").value = "All";
-
-  } else {
-    map.remove(evacuationLayer);
-    legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
-    map.add(stationLayer); // bring back station layer if needed
-    evacuationVisible = false;
-  }
-});
-
-  
 });
