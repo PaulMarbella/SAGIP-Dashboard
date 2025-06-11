@@ -1,19 +1,39 @@
 // Philipine Time
-function updateDate() {
-    const now = new Date();
-    const options = { 
-        timeZone: 'Asia/Manila', 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-    };
-    const phDate = now.toLocaleDateString('en-US', options);
-    document.getElementById("phTime").innerText = phDate;
+function updateDateTime() {
+  const el = document.getElementById("phTime");
+  if (!el) {
+    return;
+  }
+
+  const now = new Date();
+  const dateOptions = {
+    timeZone: 'Asia/Manila',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+
+  const timeOptions = {
+    timeZone: 'Asia/Manila',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  };
+
+  const phDate = now.toLocaleDateString('en-US', dateOptions);
+  const phTime = now.toLocaleTimeString('en-US', timeOptions);
+
+  el.innerText = `${phTime} | ${phDate}`;
 }
 
-setInterval(updateDate, 1000 * 60); // Update every minute
-updateDate();
+updateDateTime(); 
+setInterval(updateDateTime, 1000); 
+
+
+
+
 
 
 //Render pages
@@ -23,9 +43,26 @@ function loadPage(pageName) {
     deviceManager: "/pages/Device-Manager/device-manager.html",
     analyticalMapping: "/pages/Analytical-Mapping/analytical-mapping.html",
     arcGIS: "/pages/arcGIS/ArcGIS.html",
-    camera: "/pages/Camera/camera.html"
+    camera: "/pages/Camera/camera.html",
+    aboutUs: "/pages/Footer/about-us.html",
+    contactUs: "/pages/Footer/contact-us.html",
+    privacyPolicy: "/pages/Footer/privacy-policy.html",
+    termsOfUse: "/pages/Footer/terms-of-use.html"
   };
 
+  // ✅ When pageName is missing — use base page and just start time
+  if (!pageName || !pagePaths[pageName]) {
+    const el = document.getElementById("phTime");
+    if (el) {
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    } else {
+      console.warn("#phTime not found on base page");
+    }
+    return;
+  }
+
+  // ✅ Otherwise, load the selected page
   const filePath = pagePaths[pageName];
 
   fetch(filePath)
@@ -36,11 +73,9 @@ function loadPage(pageName) {
     .then(html => {
       const mainContent = document.getElementById("main-content");
 
-      // Extract scripts
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = html;
 
-      // Move all script tags out of HTML
       const scripts = tempDiv.querySelectorAll("script");
       scripts.forEach(script => {
         const newScript = document.createElement("script");
@@ -54,14 +89,18 @@ function loadPage(pageName) {
         script.remove();
       });
 
-      // Then inject the remaining HTML (without scripts)
       mainContent.innerHTML = tempDiv.innerHTML;
+
+      
     })
     .catch(error => {
       document.getElementById("main-content").innerHTML = "<p>Error loading content.</p>";
       console.error(error);
     });
 }
+
+
+
 
 
 const links = document.querySelectorAll('.nav-page');

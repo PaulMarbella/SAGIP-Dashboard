@@ -86,9 +86,8 @@
       <!-- Main Content -->
       <main class="col p-4 main-content" id="main-content">
     <div class="container-fluid">
-      <h1>SAGIP Dashboard</h1>
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="text-secondary fw-normal mb-0" id="phTime"></h3>
+            <h5 class="text-secondary fw-normal mb-0" id="phTime"></h5>
         </div>
 
         <div class="row g-4 mb-5">
@@ -208,15 +207,15 @@
                         <h6 class="text-dark fw-bold mb-3">Links</h6>
                         <ul class="list-unstyled">
                             <li class="mb-2"><a class="text-decoration-none text-dark" href="/pages/Home/home.html">Home</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="#">About Us</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="#">Contact Us</a></li>
+                            <li class="mb-2"><a class="text-decoration-none text-dark nav-link"  onclick="loadPage('aboutUs')" href="#main-content">About Us</a></li>
+                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('contactUs')" href="#main-content">Contact Us</a></li>
                         </ul>
-                    </div>
+                    </div>  
                     <div class="col-sm-6">
                         <h6 class="text-dark fw-bold mb-3">Legal</h6>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="#">Privacy Policy</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="#">Terms of Use</a></li>
+                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('privacyPolicy')" href="#main-content">Privacy Policy</a></li>
+                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('termsOfUse')" href="#main-content">Terms of Use</a></li>
                         </ul>
                     </div>
                 </div>

@@ -17,55 +17,68 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  
 
+  <div id="weatherapi-weather-widget-3"></div>
+  <script type='text/javascript' src='https://www.weatherapi.com/weather/widget.ashx?loc=1857963&wid=3&tu=2&div=weatherapi-weather-widget-3' async></script>
+  <noscript>
+    <a href="https://www.weatherapi.com/weather/q/paranaque-1857963">10 day hour by hour Paranaque weather</a>
+  </noscript>
 
-    <div id="weatherapi-weather-widget-3">
-    </div>
-    <script type='text/javascript' src='https://www.weatherapi.com/weather/widget.ashx?loc=1857963&wid=3&tu=2&div=weatherapi-weather-widget-3' async>
-    </script>
-    <noscript>
-        <a href="https://www.weatherapi.com/weather/q/paranaque-1857963" alt="Hour by hour Paranaque weather">10 day hour by hour Paranaque weather</a>
-    </noscript>
-  
-
-
-<div class="container d-flex justify-content-between gap-5 mt-5 w-100">
-  
-  <div class="col-md-2">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Tools</h5>
+  <div class="container d-flex justify-content-between gap-5 mt-5 w-100">
+    <!-- Sidebar -->
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Tools</h5>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-secondary d-flex gap-1 mb-3 col-12" id="refresh"><i class="bi bi-arrow-clockwise"></i>Refresh Data</button>
+          <button class="btn btn-success d-flex gap-1 mb-3 col-12" id="download-csv"><i class="bi bi-download"></i>Download CSV</button>
+          <button class="btn btn-danger d-flex gap-1 col-12" data-bs-toggle="modal" data-bs-target="#graphModal" onclick="generateChart()"><i class="bi bi-search"></i>Prediction Analysis</button>
+        </div>
       </div>
-      <div class="card-body">
-        <button class="btn btn-secondary d-flex gap-1 mb-3 col-12" id="refresh"><i class="bi bi-arrow-clockwise"></i>Refresh Data</button>
-        <button class="btn btn-success d-flex gap-1 col-12" id="download-csv"><i class="bi bi-download"></i>Download CSV</button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="col-md-10">
+      <input type="text" id="search-table" class="form-control mb-5 border border-primary searhBar" placeholder="Search table...">
+      <table class="table table-hover" id="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Max Temp (°C)</th>
+            <th>Min Temp (°C)</th>
+            <th style="width: 40%;">Weather</th>
+          </tr>
+        </thead>
+        <tbody id="weatherTableBody">
+          <!-- Dynamic table content here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal for Line Graph -->
+  <div class="modal fade" id="graphModal" tabindex="-1" aria-labelledby="graphModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Temperature Trend (Max & Min)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <canvas id="lineChart" height="100"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button id="downloadChartBtn" class="btn btn-success">
+            <i class="bi bi-download"></i> Download Chart
+          </button>
+        </div>
       </div>
     </div>
   </div>
-  
-  
-  
-  <div class="col-md-10">
-    <input type="text" id="search-table" class="form-control mb-5 border border-primary searhBar" placeholder="Search table...">
 
-    <table class="table table-hover" id="data-table">
-       <thead>
-      <tr>
-        <th>Date</th>
-        <th>Max Temp (°C)</th>
-        <th>Min Temp (°C)</th>
-        <th>Weather</th>
-      </tr>
-    </thead>
-    <tbody id="weatherTableBody">
-  
-    </tbody>
-    </table>
-  </div>
-  
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/weather.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

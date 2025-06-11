@@ -1,4 +1,4 @@
-// searchBar filtering
+
 document.getElementById('search-table').addEventListener('input', function () {
   const query = this.value.toLowerCase();
   const rows = document.querySelectorAll('#data-table tbody tr');
@@ -10,9 +10,18 @@ document.getElementById('search-table').addEventListener('input', function () {
 });
 
 // API and caching
-let API_URL_Weather = "https://www.meteosource.com/api/v1/free/point?lat=14.501079546668159&lon=120.99492357355032&sections=daily&language=en&units=metric&key=uii5s91ll0p9ee245t8tg57hkwjbll6u874l2kgm";
-const CACHE_KEY = "weatherCache";
-const CACHE_EXPIRY_HOURS = 6;
+// Declare only if not already defined
+if (typeof API_URL_Weather === "undefined") {
+  var API_URL_Weather = "https://www.meteosource.com/api/v1/free/point?lat=14.501079546668159&lon=120.99492357355032&sections=daily&language=en&units=metric&key=uii5s91ll0p9ee245t8tg57hkwjbll6u874l2kgm";
+}
+
+if (typeof CACHE_KEY === "undefined") {
+  var CACHE_KEY = "weatherCache";
+}
+
+if (typeof CACHE_EXPIRY_HOURS === "undefined") {
+  var CACHE_EXPIRY_HOURS = 6;
+}
 
 async function fetchWeather(forceRefresh = false) {
   const now = Date.now();
@@ -57,7 +66,6 @@ function displayWeather(data) {
       </tr>
     `;
     tbody.insertAdjacentHTML("beforeend", row);
-    console.log(tempMax)
   });
 }
 
@@ -108,3 +116,68 @@ document.getElementById("download-csv").addEventListener("click", function () {
   setTimeout(() => {
     spinner.style.display = "none";
   }, 8000); // 10 seconds max wait
+
+
+
+
+  //graph
+  let chartInstance;
+
+  function generateChart() {
+    const labels = [];
+    const maxTemps = [];
+    const minTemps = [];
+
+    document.querySelectorAll('#weatherTableBody tr').forEach(row => {
+      const cells = row.querySelectorAll('td');
+      labels.push(cells[0].innerText);
+      maxTemps.push(parseFloat(cells[1].innerText));
+      minTemps.push(parseFloat(cells[2].innerText));
+    });
+
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Max Temp (°C)',
+            data: maxTemps,
+            borderColor: '#e74c3c',
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            fill: true,
+            tension: 0.3
+          },
+          {
+            label: 'Min Temp (°C)',
+            data: minTemps,
+            borderColor: '#3498db',
+            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+            fill: true,
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  }
+
+  // Add download functionality
+document.getElementById('downloadChartBtn').addEventListener('click', function () {
+  const link = document.createElement('a');
+  link.href = myChart.toBase64Image();
+  link.download = 'weather-chart.png';
+  link.click();
+});
