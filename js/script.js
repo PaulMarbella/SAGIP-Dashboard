@@ -39,15 +39,15 @@ setInterval(updateDateTime, 1000);
 //Render pages
 function loadPage(pageName) {
   const pagePaths = {
-    commandCenter: "/pages/Command-Center/command-center.html",
-    deviceManager: "/pages/Device-Manager/device-manager.html",
-    analyticalMapping: "/pages/Analytical-Mapping/analytical-mapping.html",
-    arcGIS: "/pages/arcGIS/ArcGIS.html",
-    camera: "/pages/Camera/camera.html",
-    aboutUs: "/pages/Footer/about-us.html",
-    contactUs: "/pages/Footer/contact-us.html",
-    privacyPolicy: "/pages/Footer/privacy-policy.html",
-    termsOfUse: "/pages/Footer/terms-of-use.html"
+    commandCenter: "/SAGIP-Dashboard/pages/Command-Center/command-center.php",
+    deviceManager: "/SAGIP-Dashboard/pages/Device-Manager/device-manager.php",
+    analyticalMapping: "/SAGIP-Dashboard/pages/Analytical-Mapping/analytical-mapping.php",
+    arcGIS: "/SAGIP-Dashboard/pages/arcGIS/ArcGIS.php",
+    camera: "/SAGIP-Dashboard/pages/Camera/camera.php",
+    aboutUs: "/SAGIP-Dashboard/pages/Footer/about-us.html",
+    contactUs: "/SAGIP-Dashboard/pages/Footer/contact-us.html",
+    privacyPolicy: "/SAGIP-Dashboard/pages/Footer/privacy-policy.html",
+    termsOfUse: "/SAGIP-Dashboard/pages/Footer/terms-of-use.html"
   };
 
   // ✅ When pageName is missing — use base page and just start time
@@ -130,24 +130,37 @@ const links = document.querySelectorAll('.nav-page');
     });
   });
 
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutBtn = document.getElementById("logoutBtn");
+  
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", function (e) {
+        e.preventDefault(); // prevent immediate redirect
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
+        window.location.href = "../../index.php"; // now safely redirect
+      });
+    }
+  });
+  
   
   //name
   document.addEventListener('DOMContentLoaded', () => {
-    const storedName = localStorage.getItem('userName');
+    const storedUsername = localStorage.getItem('username'); 
     const role = localStorage.getItem('role');
   
     const nameSpans = ['displayName1', 'displayName2'];
     const greetingIds = ['userGreeting1', 'userGreeting2'];
-
   
-    if (storedName && role === 'user') {
+    if (storedUsername && role === 'user') {
       nameSpans.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.textContent = storedName;
+        if (el) el.textContent = storedUsername; 
       });
       greetingIds.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.style.display = ''; 
+        if (el) el.style.display = '';
       });
     } else if (role === 'admin') {
       greetingIds.forEach(id => {
@@ -155,7 +168,12 @@ const links = document.querySelectorAll('.nav-page');
         if (el) el.style.display = 'none';
       });
     }
+
+    console.log("Loaded:", storedUsername, role);
+
   });
+  
+  
 
 
 

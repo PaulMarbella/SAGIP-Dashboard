@@ -1,3 +1,5 @@
+<?php include("../../config/db.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="../../css/styles.css" />
 </head>
 <body>
 
@@ -20,8 +22,8 @@
       <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
         <i class="bi bi-list fs-3"></i>
       </button>
-      <a class="nav-link p-0" href="/pages/Home/home.html">
-        <img src="/assets/images/Logo.png" alt="SagipResearch Logo" style="max-height: 50px;" />
+      <a class="nav-link p-0" href="../../pages/Home/home.php">
+        <img src="../../assets/images/Logo.png" alt="SagipResearch Logo" style="max-height: 50px;" />
       </a>
     </div>
 
@@ -33,7 +35,7 @@
       <div class="offcanvas-body d-flex flex-column justify-content-between min-vh-100 px-3 pt-2 pb-4">
         <nav>
           <ul class="nav gap-4">
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="/pages/Home/home.html"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
@@ -47,7 +49,7 @@
                 Hi there, <span id="displayName2" class="fw-bold text-danger-emphasis"></span>!
               </h4>
             </div>              
-            <a class="btn btn-danger" href="/index.html">Log out<i class="bi bi-box-arrow-in-right"></i></a>
+            <a class="btn btn-danger" id="logoutBtn" href="/index.html">Log out<i class="bi bi-box-arrow-in-right"></i></a>
           </div>
         </div>
       </div>
@@ -57,8 +59,8 @@
       <!-- Desktop Sidebar -->
       <div class="d-none col d-md-flex flex-column">
       <aside class=" sidebar shadow justify-content-between align-items-center">
-          <a href="/pages/Home/home.html">
-            <img src="/assets/images/Logo.png" class="logo-img"  />
+          <a href="../../pages/Home/home.php">
+            <img src="../../assets/images/Logo.png" class="logo-img"  />
           </a>
         <div class="time d-flex justify-content-center align-items-center gap-3">
           <div id="userGreeting2">
@@ -67,14 +69,14 @@
             </h4>
           </div>    
           <div class="vr"></div>              
-          <a class="btn btn-danger d-flex gap-2 justify-content-center align-items-center" href="/index.html">Log out<i class="bi bi-box-arrow-right"></i></a>
+          <a class="btn btn-danger d-flex gap-2 justify-content-center align-items-center" id="logoutBtn" href="../../index.php">Log out<i class="bi bi-box-arrow-right"></i></a>
         </div>
       </aside>
 
       <!-- Navigation Bar -->
     <nav class="nav-bar">
       <ul class="nav gap-4">
-        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="/pages/Home/home.html"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
+        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
@@ -194,7 +196,7 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-md-5 mb-4 mb-md-0">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="/assets/images/Logo.png" alt="Company Logo" class="logo-img me-3"> <div>
+                    <img src="../../assets/images/Logo.png" alt="Company Logo" class="logo-img me-3"> <div>
                         <h5 class="text-secondary fw-bold mb-1">Self-sustained Automated Gateway and Information Platform</h5>
                         <p class="text-muted small">Your Emergency Partner </br>Col. E.L. De Leon, Parañaque, Kalakhang Maynila</p>
                     </div>
@@ -230,6 +232,6 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/script.js"></script>
+  <script src="../../js/script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-$host = '192.168.1.75';     
+$host = '192.168.100.52';     
 $user = 'sagip';       
 $pass = 'superchong21';    
 $db   = 'sagip_db';       
@@ -10,3 +10,5 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ?>
+
+

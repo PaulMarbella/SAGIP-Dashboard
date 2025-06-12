@@ -1,3 +1,4 @@
+<?php include("../../config/db.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +40,6 @@
     <div id="viewDiv"></div>
   </div>
 
-  <script src="/js/map.js"></script>
+  <script src="../../js/map.js"></script>
 </body>
 </html>

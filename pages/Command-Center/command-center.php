@@ -1,24 +1,31 @@
+<?php include("../../config/db.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Simple Local Chat</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/chat.css">
 </head>
 <body class="p-4">
 
 <div class="container">
   <h3 class="mb-4">Message</h3>
 
+  <!-- Optional hidden input to store username -->
+  <input type="hidden" id="currentUsername">
+
   <div id="messageList" class="border border-3 p-3 mb-3 bg-light rounded" style="height: 300px; overflow-y: auto;">
     <!-- Messages will appear here -->
   </div>
 
   <div class="input-group">
-    <input type="text" id="messageInput" class="form-control" placeholder="Type your message">
+    <input type="text" id="messageInput" class="form-control" placeholder="Type your message" autocomplete="off">
     <button id="sendMessage" class="btn btn-danger">Send</button>
   </div>
 </div>
+
 
  <div class="container mt-5">
     <h2 class="mb-4 text-dark">📞 Emergency Contact Directory</h2>
@@ -71,6 +78,6 @@
   </div>
 
 
-<script src="/js/message.js"></script>
+  <script src="../../js/message.js"></script>
 </body>
 </html>
