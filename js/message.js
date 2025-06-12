@@ -13,7 +13,7 @@
     const message = messageInput.value.trim();
     if (!message) return;
 
-    fetch("../../handlers/chat/chat.php", {
+    fetch("/SAGIP-Dashboard/handlers/chat/chat.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `username=${encodeURIComponent(username)}&message=${encodeURIComponent(message)}`
@@ -26,7 +26,7 @@
   });
 
   function loadMessages() {
-    fetch("../../handlers/chat/fetch-messages.php")
+    fetch("/SAGIP-Dashboard/handlers/chat/fetch-messages.php")
       .then(res => res.json())
       .then(data => {
         messageList.innerHTML = "";
@@ -52,7 +52,7 @@
             delBtn.innerHTML = "🗑️";
             delBtn.addEventListener("click", () => {
               if (confirm("Delete this message?")) {
-                fetch("../../handlers/chat/delete-message.php", {
+                fetch("/SAGIP-Dashboard/handlers/chat/delete-message.php", {
                   method: "POST",
                   headers: { "Content-Type": "application/x-www-form-urlencoded" },
                   body: `id=${msg.id}`

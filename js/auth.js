@@ -31,7 +31,7 @@ document.getElementById("submitSignup").addEventListener("click", function () {
   if (hasError) return; // Stop if there are validation errors
 
   // Proceed with fetch if all is good
-  fetch("../../SAGIP-Dashboard/handlers/submit-user/signin.php", {
+  fetch("/SAGIP-Dashboard/handlers/submit-user/signin.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
@@ -78,7 +78,7 @@ document.getElementById("submitLogin").addEventListener("click", function () {
 
   if (hasError) return;
 
-  fetch("../../SAGIP-Dashboard/handlers/submit-user/login.php", {
+  fetch("/SAGIP-Dashboard/handlers/submit-user/login.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
@@ -90,7 +90,7 @@ document.getElementById("submitLogin").addEventListener("click", function () {
       if (trimmedMsg === "success") {
         localStorage.setItem("username", username);
         localStorage.setItem("role", "user");
-        window.location.href = "../../SAGIP-Dashboard/pages/Home/home.php";
+        window.location.href = "/SAGIP-Dashboard/pages/Home/home.php";
       } else if (trimmedMsg === "❌ Incorrect password.") {
         passwordError.textContent = "Incorrect password.";
       } else if (trimmedMsg === "❌ Account not found.") {
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (password === correctPassword) {
       localStorage.setItem("role", "admin");
       localStorage.removeItem("username"); // optional: clear user info
-      window.location.href = "../../SAGIP-Dashboard/pages/Home/home-admin.php";
+      window.location.href = "/SAGIP-Dashboard/pages/Home/home-admin.php";
     } else {
       errorDisplay.textContent = "❌ Incorrect password.";
     }

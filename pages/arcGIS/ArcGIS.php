@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/SAGIP-Dashboard/css/styles.css">
 
   <!-- ArcGIS CSS -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
@@ -40,6 +40,6 @@
     <div id="viewDiv"></div>
   </div>
 
-  <script src="../../js/map.js"></script>
+  <script src="/SAGIP-Dashboard/js/map.js"></script>
 </body>
 </html>

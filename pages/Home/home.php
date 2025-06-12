@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="/SAGIP-Dashboard/css/styles.css" />
 </head>
 <body>
 
@@ -22,8 +22,8 @@
       <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
         <i class="bi bi-list fs-3"></i>
       </button>
-      <a class="nav-link p-0" href="../../pages/Home/home.php">
-        <img src="../../assets/images/Logo.png" alt="SagipResearch Logo" style="max-height: 50px;" />
+      <a class="nav-link p-0" href="/SAGIP-Dashboard/pages/Home/home.php">
+        <img src="/SAGIP-Dashboard/assets/images/Logo.png" alt="SagipResearch Logo" style="max-height: 50px;" />
       </a>
     </div>
 
@@ -32,13 +32,14 @@
       <div class="offcanvas-header">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body d-flex flex-column justify-content-between min-vh-100 px-3 pt-2 pb-4">
+      <div class="offcanvas-body d-flex flex-column justify-content-between px-3 pt-2 pb-4">
         <nav>
           <ul class="nav gap-4">
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none" href="/SAGIP-Dashboard/pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('camera')"><i class="bi bi-camera"></i>LIVE Camera</a></li>
           </ul>
 
         </nav>
@@ -59,8 +60,8 @@
       <!-- Desktop Sidebar -->
       <div class="d-none col d-md-flex flex-column">
       <aside class=" sidebar shadow justify-content-between align-items-center">
-          <a href="../../pages/Home/home.php">
-            <img src="../../assets/images/Logo.png" class="logo-img"  />
+          <a href="/SAGIP-Dashboard/pages/Home/home.php">
+            <img src="/SAGIP-Dashboard/assets/images/Logo.png" class="logo-img"  />
           </a>
         <div class="time d-flex justify-content-center align-items-center gap-3">
           <div id="userGreeting2">
@@ -69,14 +70,14 @@
             </h4>
           </div>    
           <div class="vr"></div>              
-          <a class="btn btn-danger d-flex gap-2 justify-content-center align-items-center" id="logoutBtn" href="../../index.php">Log out<i class="bi bi-box-arrow-right"></i></a>
+          <a class="btn btn-danger d-flex gap-2 justify-content-center align-items-center" id="logoutBtn" href="/SAGIP-Dashboard/index.php">Log out<i class="bi bi-box-arrow-right"></i></a>
         </div>
       </aside>
 
       <!-- Navigation Bar -->
     <nav class="nav-bar">
       <ul class="nav gap-4">
-        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
+        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="/SAGIP-Dashboard/pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
@@ -232,6 +233,6 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../../js/script.js"></script>
+  <script src="/SAGIP-Dashboard/js/script.js"></script>
 </body>
 </html>

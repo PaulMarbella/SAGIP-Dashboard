@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <title>Simple Local Chat</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="../../css/chat.css">
+  <link rel="stylesheet" href="/SAGIP-Dashboard/css/chat.css">
 </head>
 <body class="p-4">
 
@@ -78,6 +78,6 @@
   </div>
 
 
-  <script src="../../js/message.js"></script>
+  <script src="/SAGIP-Dashboard/js/message.js"></script>
 </body>
 </html>
