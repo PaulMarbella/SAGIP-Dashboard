@@ -1,4 +1,9 @@
-<?php include("../../config/db.php"); ?>
+<?php
+include("../../config/weather_db.php");
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,10 +41,10 @@
         <nav>
           <ul class="nav gap-4">
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none" href="/SAGIP-Dashboard/pages/Home/home.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('camera')"><i class="bi bi-camera"></i>LIVE Camera</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('camera')"><i class="bi bi-camera"></i>LIVE Camera</a></li>
           </ul>
 
         </nav>
@@ -101,11 +106,11 @@
                             <i class="fas fa-water me-2 fa-lg"></i> Humidity
                         </h5>
                         <div class="text-center">
-                            <h1 class="display-3 fw-bold text-dark">
-                                <!-- <?php echo isset($humidity) ? $humidity . '%' : '<span class="text-muted">Loading...</span>'; ?> --> --%
+                            <h1 id="humidityDisplay" class="display-3 fw-bold text-dark">
+                            --%
                             </h1>
-                            <p class="card-text text-muted small">
-                                Last updated: Just now
+                            <p id="humUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
                             </p>
                         </div>
                     </div>
@@ -137,11 +142,11 @@
                             <i class="bi bi-temperature-full me-2 fa-lg"></i> Heat Index Temperature
                         </h5>
                         <div class="text-center">
-                            <h1 class="display-3 fw-bold text-dark">
-                                <!-- <?php echo isset($heatIndex) ? $heatIndex . '°C' : '<span class="text-muted">Loading...</span>'; ?> -->--%
+                            <h1 id="temperatureDisplay" class="display-3 fw-bold text-dark">
+                            --°C
                             </h1>
-                            <p class="card-text text-muted small">
-                                Last updated: Just now
+                            <p id="tempUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
                             </p>
                         </div>
                     </div>
@@ -184,54 +189,61 @@
             </div>
         </div>
 
-        <div class="mt-4">
-          <h3>Weather News</h3>
-        </div>
+
     </div>
 </main>
 
   </div>
   
-  <footer class="footer py-5">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md-5 mb-4 mb-md-0">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="../../assets/images/Logo.png" alt="Company Logo" class="logo-img me-3"> <div>
-                        <h5 class="text-secondary fw-bold mb-1">Self-sustained Automated Gateway and Information Platform</h5>
-                        <p class="text-muted small">Your Emergency Partner </br>Col. E.L. De Leon, Parañaque, Kalakhang Maynila</p>
-                    </div>
-                </div>
-            </div>
+  <footer class="footer py-5 bg-light">
+  <div class="container">
+    <div class="row gy-4 justify-content-between align-items-start">
+      <!-- Logo and Description -->
+      <div class="col-lg-5 col-md-6">
+        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3">
+          <img src="../../assets/images/Logo.png" alt="Company Logo" class="logo-img" style="max-width: 70px;" />
+          <div>
+            <h5 class="text-secondary fw-bold mb-1">Self-sustained Automated Gateway and Information Platform</h5>
+            <p class="text-muted small mb-0">
+              Your Emergency Partner<br>
+              Col. E.L. De Leon, Parañaque, Kalakhang Maynila
+            </p>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <h6 class="text-dark fw-bold mb-3">Links</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="/pages/Home/home.html">Home</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark nav-link"  onclick="loadPage('aboutUs')" href="#main-content">About Us</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('contactUs')" href="#main-content">Contact Us</a></li>
-                        </ul>
-                    </div>  
-                    <div class="col-sm-6">
-                        <h6 class="text-dark fw-bold mb-3">Legal</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('privacyPolicy')" href="#main-content">Privacy Policy</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('termsOfUse')" href="#main-content">Terms of Use</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <!-- Links Section -->
+      <div class="col-lg-6 col-md-6">
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <h6 class="text-dark fw-bold mb-3">Links</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a class="text-decoration-none text-dark" href="/pages/Home/home.html">Home</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('aboutUs')" href="#main-content">About Us</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('contactUs')" href="#main-content">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <h6 class="text-dark fw-bold mb-3">Legal</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('privacyPolicy')" href="#main-content">Privacy Policy</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('termsOfUse')" href="#main-content">Terms of Use</a></li>
+            </ul>
+          </div>
         </div>
-        <hr class="my-4 border-secondary opacity-25">
-        <div class="text-center text-muted small">
-         © 2025 SAGIP. All rights reserved.
-        </div>
+      </div>
     </div>
+
+    <hr class="my-4 border-secondary opacity-25">
+    <div class="text-center text-muted small">
+      © 2025 SAGIP. All rights reserved.
+    </div>
+  </div>
 </footer>
 
+
   <!-- Scripts -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/SAGIP-Dashboard/js/script.js"></script>
 </body>

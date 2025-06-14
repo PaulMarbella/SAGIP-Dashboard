@@ -1,33 +1,31 @@
-.chat-bubble {
-    margin-bottom: 10px;
-    max-width: 100%;
-  }
-  
-  .chat-bubble.own {
-    align-self: flex-end;
-    text-align: right;
-  }
-  
-  .chat-bubble.other {
-    align-self: flex-start;
-    text-align: left;
-  }
-  
-  .chat-bubble .username {
-    font-size: 1rem;
-    font-weight: 800;
-    color: #000;
-  }
-  
-  .chat-bubble .bubble {
-    display: inline-block;
-    background-color: #EEE;
-    border-radius: 12px;
-    padding: 10px;
-    word-wrap: break-word;
-  }
-  
-  .chat-bubble.own .bubble {
-    background-color: #eee;
-  }
-  
+.chat-bubble.own {
+  align-self: flex-end;
+  background-color: #e8f5e9;
+  text-align: right; 
+  justify-content: flex-end; 
+}
+
+.chat-bubble.other {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  text-align: left;
+}
+
+.bubble {
+  max-width: 100%;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-bubble.own .username {
+  justify-content: flex-end; 
+}
+
+.chat-bubble.other .username {
+  justify-content: flex-start;
+}

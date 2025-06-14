@@ -99,10 +99,14 @@
         <div class="card shadow-sm border-success">
           <div class="card-body">
             <h5 class="card-title text-success">Heat Index Temperature</h5>
-            <h1 class="display-4 fw-bold">
-              <!-- <?php echo isset($heatIndex) ? $heatIndex . '°C' : 'Loading...'; ?> -->
-            </h1>
-            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
+            <div class="text-center">
+                            <h1 id="humidityDisplay" class="display-3 fw-bold text-dark">
+                            --%
+                            </h1>
+                            <p id="humUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
           </div>
         </div>
       </div>
@@ -124,11 +128,15 @@
     <div class="col-md-12 mt-5">
         <div class="card shadow-sm border-success">
           <div class="card-body">
-            <h5 class="card-title text-danger">Map</h5>
-            <h1 class="display-4 fw-bold">
-              <!-- <?php echo isset($heatIndex) ? $heatIndex . '°C' : 'Loading...'; ?> -->
-            </h1>
-            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
+            <h5 class="card-title text-danger">Temperature Heat Index</h5>
+            <div class="text-center">
+                            <h1 id="temperatureDisplay" class="display-3 fw-bold text-dark">
+                            --°C
+                            </h1>
+                            <p id="tempUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
           </div>
         </div>
       </div>
@@ -149,43 +157,50 @@
 
   </div>
   
-  <footer class="footer py-5">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md-5 mb-4 mb-md-0">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="../../assets/images/Logo.png" alt="Company Logo" class="logo-img me-3"> <div>
-                        <h5 class="text-secondary fw-bold mb-1">Self-sustained Automated Gateway and Information Platform</h5>
-                        <p class="text-muted small">Your Emergency Partner </br>Col. E.L. De Leon, Parañaque, Kalakhang Maynila</p>
-                    </div>
-                </div>
-            </div>
+  <footer class="footer py-5 bg-light">
+  <div class="container">
+    <div class="row gy-4 justify-content-between align-items-start">
+      <!-- Logo and Description -->
+      <div class="col-lg-5 col-md-6">
+        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3">
+          <img src="../../assets/images/Logo.png" alt="Company Logo" class="logo-img" style="max-width: 70px;" />
+          <div>
+            <h5 class="text-secondary fw-bold mb-1">Self-sustained Automated Gateway and Information Platform</h5>
+            <p class="text-muted small mb-0">
+              Your Emergency Partner<br>
+              Col. E.L. De Leon, Parañaque, Kalakhang Maynila
+            </p>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <h6 class="text-dark fw-bold mb-3">Links</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a class="text-decoration-none text-dark" href="/pages/Home/home.html">Home</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark nav-link"  onclick="loadPage('aboutUs')" href="#main-content">About Us</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('contactUs')" href="#main-content">Contact Us</a></li>
-                        </ul>
-                    </div>  
-                    <div class="col-sm-6">
-                        <h6 class="text-dark fw-bold mb-3">Legal</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('privacyPolicy')" href="#main-content">Privacy Policy</a></li>
-                            <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('termsOfUse')" href="#main-content">Terms of Use</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <!-- Links Section -->
+      <div class="col-lg-6 col-md-6">
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <h6 class="text-dark fw-bold mb-3">Links</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a class="text-decoration-none text-dark" href="/pages/Home/home.html">Home</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('aboutUs')" href="#main-content">About Us</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('contactUs')" href="#main-content">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <h6 class="text-dark fw-bold mb-3">Legal</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('privacyPolicy')" href="#main-content">Privacy Policy</a></li>
+              <li class="mb-2"><a class="text-decoration-none text-dark" onclick="loadPage('termsOfUse')" href="#main-content">Terms of Use</a></li>
+            </ul>
+          </div>
         </div>
-        <hr class="my-4 border-secondary opacity-25">
-        <div class="text-center text-muted small">
-         © 2025 SAGIP. All rights reserved.
-        </div>
+      </div>
     </div>
+
+    <hr class="my-4 border-secondary opacity-25">
+    <div class="text-center text-muted small">
+      © 2025 SAGIP. All rights reserved.
+    </div>
+  </div>
 </footer>
 
   <!-- Scripts -->

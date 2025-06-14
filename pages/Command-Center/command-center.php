@@ -72,6 +72,16 @@
               <a href="sms:0288888888" class="btn btn-outline-primary btn-sm">Message</a>
             </td>
           </tr>
+          <tr>
+            <td>Sto. Niño Fire and Rescue </td>
+            <td>Local FB Unit</td>
+            <td>Emergency Center</td>
+            <td>8826‑9131 (BFP)</td>
+            <td>
+              <a href="tel:0288269131" class="btn btn-success btn-sm me-1">Call</a>
+              <a href="sms:0288269131" class="btn btn-outline-primary btn-sm">Message</a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

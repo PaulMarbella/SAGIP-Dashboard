@@ -126,25 +126,38 @@ body{
     flex: 1;
 }
 
- .container-ArcGIS {
-      display: flex;
-      justify-content: space-evenly;
-      margin: 3em auto 5em auto;
-    }
+#viewDiv {
+  min-height: 60vh; 
+  background-color: #e9ecef; 
+  border-radius: 0.25rem; 
+  overflow: hidden; 
+}
 
-    #filterPanel {
-      margin-right: 20px;
-      
-    }
+.your_location{
+  width: 100%;
 
-    #viewDiv {
-      height: 60vh;           
-      width: 90vw;            
-      max-width: 1500px;       
-      max-height: 1000px;      
-      border: 2px solid black;
-      border-radius: 10px;
-    }
+}
+
+.dot{
+  padding: 7px 20px;
+  border-radius:70% ;
+  border: 2px solid white;
+  background-color: #5050E6;
+  margin-left: 1em;
+}
+
+
+.animate-btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.animate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.animate-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
 
 
     #stationFilter {

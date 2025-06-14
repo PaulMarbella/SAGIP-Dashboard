@@ -1,3 +1,4 @@
+
 // Philipine Time
 function updateDateTime() {
   const el = document.getElementById("phTime");
@@ -32,7 +33,18 @@ updateDateTime();
 setInterval(updateDateTime, 1000); 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+  const mobileSidebar = document.getElementById('mobileSidebar');
+  const sidebarInstance = bootstrap.Offcanvas.getOrCreateInstance(mobileSidebar);
 
+  document.querySelectorAll('.close-on-click').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 920) { 
+        sidebarInstance.hide();
+      }
+    });
+  });
+});
 
 
 
@@ -50,7 +62,6 @@ function loadPage(pageName) {
     termsOfUse: "/SAGIP-Dashboard/pages/Footer/terms-of-use.html"
   };
 
-  // ✅ When pageName is missing — use base page and just start time
   if (!pageName || !pagePaths[pageName]) {
     const el = document.getElementById("phTime");
     if (el) {
@@ -169,40 +180,58 @@ const links = document.querySelectorAll('.nav-page');
       });
     }
 
-    console.log("Loaded:", storedUsername, role);
+    // console.log("Loaded:", storedUsername, role);
 
   });
   
   
 
 
+//readings
+(function () {
+  console.log("[Auto-refresh temperature/humidity script running]");
 
+  function updateReadings() {
+    fetch("/SAGIP-Dashboard/handlers/weather/readings.php")  // or use relative "../../"
+      .then(res => res.json())
+      .then(data => {
+        if (!data || data.error) {
+          console.warn("Error from PHP:", data.error);
+          return;
+        }
+  
+        const temp = parseFloat(data.temperature);
+        const hum = parseFloat(data.humidity);
+        const time = data.updated_at;
+  
+        const tempDisplay = document.getElementById("temperatureDisplay");
+        const tempTime = document.getElementById("tempUpdatedAt");
+  
+        if (tempDisplay && tempTime) {
+          tempDisplay.textContent = `${temp.toFixed(1)}°C`;
+          tempTime.textContent = `Last updated: ${time}`;
+  
+          if (temp < 26) tempDisplay.style.color = "blue";
+          else if (temp < 32) tempDisplay.style.color = "orange";
+          else if (temp < 38) tempDisplay.style.color = "orangered";
+          else tempDisplay.style.color = "red";
+        }
+  
+        const humDisplay = document.getElementById("humidityDisplay");
+        const humTime = document.getElementById("humUpdatedAt");
+  
+        if (humDisplay && humTime) {
+          humDisplay.textContent = `${hum.toFixed(1)}%`;
+          humTime.textContent = `Last updated: ${time}`;
+        }
+      })
+      .catch(err => console.error("Fetch error:", err));
+  }
+  
+  updateReadings();
+  setInterval(updateReadings, 5000);
 
-
-
-//  fetch('https://www.pagasa.dost.gov.ph/rss.xml')
-//   .then(response => response.text())
-//   .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
-//   .then(data => {
-//     const items = data.querySelectorAll("item");
-//     const list = document.getElementById("pagasa-weather");
-//     for (let i = 0; i < 5; i++) {
-//       const item = items[i];
-//       const title = item.querySelector("title").textContent;
-//       const link = item.querySelector("link").textContent;
-//       const li = document.createElement("li");
-//       li.innerHTML = `<a href="${link}" target="_blank">${title}</a>`;
-//       list.appendChild(li);
-//     }
-//   })
-//   .catch(err => {
-//     document.getElementById("pagasa-weather").innerText = "Failed to load PAGASA weather feed.";
-//     console.error(err);
-//   });
-  
-  
-  
-  
+})();
 
 
   

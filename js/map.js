@@ -3,8 +3,9 @@ require([
   "esri/views/MapView",
   "esri/Graphic",
   "esri/layers/FeatureLayer",
-  "esri/widgets/Legend"
-], function (Map, MapView, Graphic, FeatureLayer, Legend) {
+  "esri/widgets/Legend",
+  "esri/widgets/Locate"
+], function (Map, MapView, Graphic, FeatureLayer, Legend,Locate) {
 
   // --- Map and View Initialization ---
   const map = new Map({ basemap: "satellite" });
@@ -16,16 +17,73 @@ require([
     zoom: 16
   });
 
+    // --- Locate Widget ---
+    const locateBtn = new Locate({
+      view: view,
+      useHeadingEnabled: false,
+      goToOverride: function(view, options) {
+        options.target.scale = 1500; // Optional: Zoom level when locating
+        return view.goTo(options.target);
+      }
+    });
+  
+    view.ui.add(locateBtn, "top-left");
+
+    // Auto-locate user on map load and display coordinates
+view.when(() => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      // Move the view to the user's location
+      view.goTo({
+        center: [longitude, latitude],
+        scale: 1500
+      });
+
+      // Add a point graphic (blue dot)
+      const userPoint = new Graphic({
+        geometry: {
+          type: "point",
+          longitude: longitude,
+          latitude: latitude
+        },
+        symbol: {
+          type: "simple-marker",
+          color: [0, 0, 255, 0.6],
+          size: 12,
+          outline: {
+            color: [255, 255, 255],
+            width: 1
+          }
+        }
+      });
+      view.graphics.add(userPoint);
+
+      // Display coordinates
+      const coordDiv = document.getElementById("user-coordinates");
+      coordDiv.textContent = `Your Location: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+    }, function (error) {
+      document.getElementById("user-coordinates").textContent = "Location access denied.";
+    });
+  } else {
+    document.getElementById("user-coordinates").textContent = "Geolocation not supported.";
+  }
+});
+
+  
+
   // --- Symbols ---
-  const sagipDot = { type: "simple-marker", color: "yellow", size: 12, outline: { color: "white", width: 1 } };
-  const waterDot = { type: "simple-marker", color: "blue", size: 12, outline: { color: "white", width: 1 } };
+  const sagipDot = { type: "simple-marker", color: "rgb(182,0,1)", size: 12, outline: { color: "white", width: 1 } };
+  const waterDot = { type: "simple-marker", color: "rgb(0,184,244)", size: 12, outline: { color: "white", width: 1 } };
   const monitorDot = { type: "simple-marker", color: "black", size: 12, outline: { color: "white", width: 1 } };
   const evacuationDot = { type: "simple-marker", color: "green", size: 12, outline: { color: "white", width: 1 } };
 
   // --- Monitoring Station Graphics ---
   const graphics = [
     {
-      geometry: { type: "point", longitude: 120.99483138606303, latitude: 14.50057820761905 },
+      geometry: { type: "point", longitude: 120.99480501817733, latitude: 14.50052525637967 },   
       symbol: sagipDot,
       attributes: {
         ObjectID: 1,
@@ -50,7 +108,7 @@ require([
         Name: "SAGIP Monitor",
         Description: "Focused monitoring - Dashboard"
       }
-    }
+    },
   ];
 
   // --- Station FeatureLayer ---
@@ -155,7 +213,7 @@ require([
         uniqueValueInfos: [
           { value: "SAGIP Station", symbol: sagipDot, label: "SAGIP Station" },
           { value: "Water Level Monitoring", symbol: waterDot, label: "Water Level Monitoring" },
-          { value: "SAGIP Monitor", symbol: monitorDot, label: "SAGIP Monitor" }
+          { value: "SAGIP Monitor", symbol: monitorDot, label: "SAGIP Monitor" },
         ]
       }
     });
