@@ -11,7 +11,11 @@
 <body class="p-4">
 
 <div class="container">
-  <h3 class="mb-4">Message</h3>
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h4 id="chatTitle">💬 Global Chat</h4>
+  <button id="backToGlobalBtn" class="btn btn-sm btn-secondary d-none">← Back</button>
+</div>
+
 
   <!-- Optional hidden input to store username -->
   <input type="hidden" id="currentUsername">
@@ -49,7 +53,12 @@
             <td>0917-123-4567</td>
             <td>
               <a href="tel:09171234567" class="btn btn-success btn-sm me-1">Call</a>
-              <a href="sms:09171234567" class="btn btn-outline-primary btn-sm">Message</a>
+              <a href="#" 
+                class="btn btn-outline-primary btn-sm message-contact-btn" 
+                data-number="09171234567" 
+                data-name="Juan Dela Cruz">
+                Message
+              </a>
             </td>
           </tr>
           <tr>
@@ -59,7 +68,7 @@
             <td>0998-234-5678</td>
             <td>
               <a href="tel:09982345678" class="btn btn-success btn-sm me-1">Call</a>
-              <a href="sms:09982345678" class="btn btn-outline-primary btn-sm">Message</a>
+              <a href="#" class="btn btn-outline-primary btn-sm message-contact-btn" data-number="09982345678" data-name="Maria Santos">Message</a>
             </td>
           </tr>
           <tr>
@@ -69,7 +78,7 @@
             <td>(02) 8888-8888</td>
             <td>
               <a href="tel:0288888888" class="btn btn-success btn-sm me-1">Call</a>
-              <a href="sms:0288888888" class="btn btn-outline-primary btn-sm">Message</a>
+              <a href="#" class="btn btn-outline-primary btn-sm message-contact-btn" data-number="0288888888" data-name="Central Office">Message</a>
             </td>
           </tr>
           <tr>
@@ -79,13 +88,13 @@
             <td>8826‑9131 (BFP)</td>
             <td>
               <a href="tel:0288269131" class="btn btn-success btn-sm me-1">Call</a>
-              <a href="sms:0288269131" class="btn btn-outline-primary btn-sm">Message</a>
+              <a href="#" class="btn btn-outline-primary btn-sm message-contact-btn" data-number="0288269131" data-name="Sto. Niño Fire and Rescue">Message</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
+
 
 
   <script src="/SAGIP-Dashboard/js/message.js"></script>

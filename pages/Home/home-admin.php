@@ -36,9 +36,10 @@
         <nav>
           <ul class="nav gap-4">
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home-admin.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('deviceManager')"><i class="bi bi-globe-central-south-asia"></i> Device Manager</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click" onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click" onclick="loadPage('deviceManager')"><i class="bi bi-globe-central-south-asia"></i> Device Manager</a></li>
           </ul>
 
         </nav>
@@ -79,6 +80,7 @@
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home-admin.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
+        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('deviceManager')"><i class="bi bi-globe-central-south-asia"></i> Device Manager</a></li>
       </ul>
     </nav>
@@ -89,17 +91,17 @@
 
         <!-- Main Page/ Home Page content  -->
         <div class="py-3">
-    <h2 class="text-center text-dark">SAGIG DASHBOARD</h2>
+    <h2 class="text-center text-dark">SAGIP DASHBOARD</h2>
 
 
-    <div class="row g-4">
-
-      <!-- Heat Index Card -->
-      <div class="col-md-6">
-        <div class="card shadow-sm border-success">
-          <div class="card-body">
-            <h5 class="card-title text-success">Heat Index Temperature</h5>
-            <div class="text-center">
+    <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-success fw-normal mb-3 d-flex align-items-center">
+                            <i class="fas fa-water me-2 fa-lg"></i> Humidity
+                        </h5>
+                        <div class="text-center">
                             <h1 id="humidityDisplay" class="display-3 fw-bold text-dark">
                             --%
                             </h1>
@@ -107,29 +109,53 @@
                             Last updated: --
                             </p>
                         </div>
-          </div>
-        </div>
-      </div>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Water Level Card -->
-      <div class="col-md-6">
-        <div class="card shadow-sm border-primary">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Water Level</h5>
-            <h1 class="display-4 fw-bold">
-              <!-- <?php echo isset($waterLevel) ? $waterLevel . ' m' : 'Loading...'; ?> -->
-            </h1>
-            <!-- <p class="card-text text-muted">As of <?php echo date("g:i A"); ?></p> -->
-          </div>
-        </div>
-      </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-primary fw-normal mb-3 d-flex align-items-center">
+                            <i class="fas fa-faucet-drip me-2 fa-lg"></i> Water Level
+                        </h5>
+                        <div class="text-center">
+                            <h1 id="waterDisplay" class="display-3 fw-bold text-dark">
+                            --m<span id="waterAlertLevel" class ="text-success h1"></span>
+                            </h1>
+                            <p id="waterUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
-    <div class="col-md-12 mt-5">
-        <div class="card shadow-sm border-success">
-          <div class="card-body">
-            <h5 class="card-title text-danger">Temperature Heat Index</h5>
-            <div class="text-center">
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-danger fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Heat Index Temperature
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="heatDisplay" class="display-3 fw-bold text-dark">
+                            --°C
+                            </h1>
+                            <p id="heatUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-warning fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Temperature
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
                             <h1 id="temperatureDisplay" class="display-3 fw-bold text-dark">
                             --°C
                             </h1>
@@ -137,10 +163,46 @@
                             Last updated: --
                             </p>
                         </div>
-          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-info fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Pressure
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="pressureDisplay" class="display-3 fw-bold text-dark">
+                            --mb
+                            </h1>
+                            <p id="pressureUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-dark fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Altitude
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="altitudeDisplay" class="display-3 fw-bold text-dark">
+                            --°m
+                            </h1>
+                            <p id="altitudeUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
 
   
 <div class="weather-widget-container">

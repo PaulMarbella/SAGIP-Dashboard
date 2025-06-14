@@ -27,21 +27,39 @@
             <th>Type</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Battery</th>
             <th>Last Ping</th>
-            <th>Uptime</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Sensor A</td>
-            <td>Water Level</td>
-            <td>Don Galo</td>
+            <td>Esp32</td>
+            <td>MicroController</td>
+            <td>SAGIP Station</td>
             <td><span class="badge bg-success">Online</span></td>
-            <td>90%</td>
             <td>2 mins ago</td>
-            <td>99.7%</td>
+            <td>
+              <button class="btn btn-sm btn-warning">Edit</button>
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Camera RSTP</td>
+            <td>Water Level Monitoring</td>
+            <td>ParSci</td>
+            <td><span class="badge bg-success">Online</span></td>
+            <td>1 mins ago</td>
+            <td>
+              <button class="btn btn-sm btn-warning">Edit</button>
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Raspberry Pi</td>
+            <td>single-board computer</td>
+            <td>SAGIP Station</td>
+            <td><span class="badge bg-success">Online</span></td>
+            <td>2 mins ago</td>
             <td>
               <button class="btn btn-sm btn-warning">Edit</button>
               <button class="btn btn-sm btn-danger">Delete</button>
@@ -78,10 +96,6 @@
             <div class="mb-3">
               <label for="deviceLocation" class="form-label">Location</label>
               <input type="text" class="form-control" id="deviceLocation" required>
-            </div>
-            <div class="mb-3">
-              <label for="batteryStatus" class="form-label">Battery Status (%)</label>
-              <input type="number" class="form-control" id="batteryStatus" max="100" min="0" required>
             </div>
             <div class="mb-3">
               <label for="lastPing" class="form-label">Last Ping</label>

@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const correctPassword = "superchong21";
 
     if (password === correctPassword) {
+      localStorage.setItem("username", "Admin");  // or any internal ID you want
       localStorage.setItem("role", "admin");
       localStorage.removeItem("username"); // optional: clear user info
       window.location.href = "/SAGIP-Dashboard/pages/Home/home-admin.php";

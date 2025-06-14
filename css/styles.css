@@ -19,7 +19,7 @@ html {
 }
 
 
-@media (max-width: 920px) {
+@media (max-width: 930px) {
   .d-md-flex {
     display: none !important;
   }
@@ -61,7 +61,7 @@ body{
     background-color: white !important;
 }
 .offcanvas.mobile-sidebar {
-  transition: none !important; /* Disable unwanted transition */
+  transition: none !important; 
 }
 .nav-bar{
   background: #eee;
@@ -191,6 +191,18 @@ body{
       height: 7.5em;            
       display: inline-block;
       margin: -5em 0 -4.5em -1em ;
+    }
+
+    #hoverTooltip{
+      position: absolute;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      display: none;
+      z-index: 9999;
     }
     
     

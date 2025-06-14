@@ -6,15 +6,16 @@ ini_set("display_errors", 1);
 $username = trim($_POST['username'] ?? '');
 $message = trim($_POST['message'] ?? '');
 
+
+$recipient = isset($_POST['recipient']) && trim($_POST['recipient']) !== '' ? trim($_POST['recipient']) : null;
+
 if (!empty($username) && !empty($message)) {
-  $stmt = $conn->prepare("INSERT INTO chat_messages (username, message) VALUES (?, ?)");
-  $stmt->bind_param("ss", $username, $message);
+  $stmt = $conn->prepare("INSERT INTO chat_messages (username, message, recipient) VALUES (?, ?, ?)");
+  $stmt->bind_param("sss", $username, $message, $recipient);
 
   if ($stmt->execute()) {
-    http_response_code(200);
     echo "OK";
   } else {
-    http_response_code(500);
     echo "DB insert failed: " . $stmt->error;
   }
 

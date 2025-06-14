@@ -100,9 +100,9 @@ include("../../config/weather_db.php");
 
         <div class="row g-4 mb-5">
             <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-sm border-success rounded-3 animated-card">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title text-success mb-3 d-flex align-items-center">
+                        <h5 class="card-title text-success fw-normal mb-3 d-flex align-items-center">
                             <i class="fas fa-water me-2 fa-lg"></i> Humidity
                         </h5>
                         <div class="text-center">
@@ -118,17 +118,17 @@ include("../../config/weather_db.php");
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-sm border-primary rounded-3 animated-card">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title text-primary mb-3 d-flex align-items-center">
+                        <h5 class="card-title text-primary fw-normal mb-3 d-flex align-items-center">
                             <i class="fas fa-faucet-drip me-2 fa-lg"></i> Water Level
                         </h5>
                         <div class="text-center">
-                            <h1 class="display-3 fw-bold text-dark">
-                                <!-- <?php echo isset($waterLevel) ? $waterLevel . ' m' : '<span class="text-muted">Loading...</span>'; ?> -->--%
+                            <h1 id="waterDisplay" class="display-3 fw-bold text-dark">
+                            --m<span id="waterAlertLevel" class ="text-success h1"></span>
                             </h1>
-                            <p class="card-text text-muted small">
-                                Last updated: Just now
+                            <p id="waterUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
                             </p>
                         </div>
                     </div>
@@ -136,12 +136,30 @@ include("../../config/weather_db.php");
             </div>
 
             <div class="col-lg-4 col-md-12">
-                <div class="card h-100 shadow-sm border-danger rounded-3 animated-card">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title text-danger mb-3 d-flex align-items-center">
+                        <h5 class="card-title text-danger fw-normal mb-3 d-flex align-items-center">
                             <i class="bi bi-temperature-full me-2 fa-lg"></i> Heat Index Temperature
                         </h5>
-                        <div class="text-center">
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="heatDisplay" class="display-3 fw-bold text-dark">
+                            --°C
+                            </h1>
+                            <p id="heatUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-warning fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Temperature
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
                             <h1 id="temperatureDisplay" class="display-3 fw-bold text-dark">
                             --°C
                             </h1>
@@ -152,13 +170,49 @@ include("../../config/weather_db.php");
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-info fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Pressure
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="pressureDisplay" class="display-3 fw-bold text-dark">
+                            --mb
+                            </h1>
+                            <p id="pressureUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card h-100 shadow-sm border-secondary rounded-3 animated-card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title text-dark fw-normal mb-3 d-flex align-items-center">
+                            <i class="bi bi-temperature-full me-2 fa-lg"></i> Altitude
+                        </h5>
+                        <div class="text-center d-flex flex-column justify-content-center align-items-center">
+                            <h1 id="altitudeDisplay" class="display-3 fw-bold text-dark">
+                            --°m
+                            </h1>
+                            <p id="altitudeUpdatedAt" class="card-text text-muted small">
+                            Last updated: --
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row g-4">
             <div class="col-lg-6">
-                <div class="card shadow-sm h-100 border-info rounded-3">
+                <div class="card shadow-sm h-100 border-dark rounded-3">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-info mb-3 d-flex align-items-center">
+                        <h5 class="card-title text-dark mb-3 d-flex align-items-center">
                             <i class="fas fa-cloud-sun-rain me-2 fa-lg"></i> Local Weather Forecast
                         </h5>
                         <div class="weather-widget-container flex-grow-1 d-flex align-items-center justify-content-center p-3">

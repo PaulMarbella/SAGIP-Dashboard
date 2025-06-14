@@ -50,12 +50,16 @@
             </div>
         </div>
 
+
+
         <div id="viewDiv" class="col-12 col-lg-9 mt-2">
+      
         </div>
         <div id="user-coordinates" class="text-center mt-3 text-muted small"></div>
     </div>
 </div>
 
+<div id="hoverTooltip"></div>
 
 
   <script src="/SAGIP-Dashboard/js/map.js"></script>
