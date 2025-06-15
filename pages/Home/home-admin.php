@@ -36,7 +36,7 @@
         <nav>
           <ul class="nav gap-4">
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home-admin.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
-            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
+            <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('adminMsg')"><i class="bi bi-display"></i> Command Center</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click" onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
             <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none close-on-click" onclick="loadPage('deviceManager')"><i class="bi bi-globe-central-south-asia"></i> Device Manager</a></li>
@@ -78,7 +78,7 @@
     <nav class="nav-bar">
       <ul class="nav gap-4">
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " href="../../pages/Home/home-admin.php"><i class="bi bi-thermometer-half"></i> Basic Tracking</a></li>
-        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('commandCenter')"><i class="bi bi-display"></i> Command Center</a></li>
+        <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('adminMsg')"><i class="bi bi-display"></i> Command Center</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('analyticalMapping')"><i class="bi bi-clipboard2-data"></i> Analytical Mapping</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('arcGIS')"><i class="bi bi-map"></i>ArcGIS preview</a></li>
         <li><a class="nav-page d-flex align-items-center gap-2 text-decoration-none " onclick="loadPage('deviceManager')"><i class="bi bi-globe-central-south-asia"></i> Device Manager</a></li>

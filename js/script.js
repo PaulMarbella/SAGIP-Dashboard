@@ -1,3 +1,4 @@
+7
 
 // Philipine Time
 function updateDateTime() {
@@ -80,7 +81,8 @@ function loadPage(pageName) {
     aboutUs: "/SAGIP-Dashboard/pages/Footer/about-us.html",
     contactUs: "/SAGIP-Dashboard/pages/Footer/contact-us.html",
     privacyPolicy: "/SAGIP-Dashboard/pages/Footer/privacy-policy.html",
-    termsOfUse: "/SAGIP-Dashboard/pages/Footer/terms-of-use.html"
+    termsOfUse: "/SAGIP-Dashboard/pages/Footer/terms-of-use.html",
+    adminMsg: "/SAGIP-Dashboard/pages/Command-Center/admin-command-center.php",
   };
 
   if (!pageName || !pagePaths[pageName]) {
@@ -181,6 +183,8 @@ const links = document.querySelectorAll('.nav-page');
   document.addEventListener('DOMContentLoaded', () => {
     const storedUsername = localStorage.getItem('username'); 
     const role = localStorage.getItem('role');
+
+  
   
     const nameSpans = ['displayName1', 'displayName2'];
     const greetingIds = ['userGreeting1', 'userGreeting2'];

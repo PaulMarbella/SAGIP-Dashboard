@@ -1,6 +1,5 @@
 <?php
 include("../../config/db.php");
-
 header('Content-Type: application/json');
 
 // Get username and recipient from query
@@ -13,14 +12,15 @@ if (!$username) {
   exit;
 }
 
-// GLOBAL CHAT
-if (!$recipient) {
+if ($recipient === "" || $recipient === null) {
+  // GLOBAL CHAT
   $result = $conn->query("SELECT * FROM chat_messages WHERE recipient IS NULL ORDER BY created_at ASC");
 } else {
-  // PRIVATE CHAT: fetch messages where the current user is either sender or recipient
+  // PRIVATE CHAT
   $stmt = $conn->prepare("
     SELECT * FROM chat_messages
-    WHERE (recipient = ? AND username = ?) OR (recipient = ? AND username = ?)
+    WHERE (recipient = ? AND username = ?) 
+       OR (recipient = ? AND username = ?)
     ORDER BY created_at ASC
   ");
   $stmt->bind_param("ssss", $username, $recipient, $recipient, $username);
@@ -39,7 +39,11 @@ while ($row = $result->fetch_assoc()) {
   $createdAt = strtotime($row['created_at']);
   $row['date_pretty'] = date("F j, Y", $createdAt);
   $row['time_pretty'] = date("g:i A", $createdAt);
-  $row['role'] = ($row['username'] === 'Jericho') ? 'admin' : 'user'; // example role check
+
+  // Fix: role = admin if sender is in your admins list
+  $adminList = ['admin', '09171234567', '09982345678', '0288888888', '0288269131'];
+  $row['role'] = in_array($row['username'], $adminList) ? 'admin' : 'user';
+
   $messages[] = $row;
 }
 

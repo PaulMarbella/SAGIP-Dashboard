@@ -38,7 +38,7 @@ sendButton.addEventListener("click", (e) => {
       console.log("Sent:", txt);
       messageInput.value = "";
     });
-});
+}); 
 
 
   function loadMessages() {
