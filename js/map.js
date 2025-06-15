@@ -1,3 +1,4 @@
+
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -16,7 +17,6 @@ require([
     zoom: 16
   });
 
-  // --- Locate Button ---
   const locateBtn = new Locate({
     view: view,
     useHeadingEnabled: false,
@@ -27,13 +27,8 @@ require([
   });
   view.ui.add(locateBtn, "top-left");
 
-  // --- Hover Tooltip Description ---
-
-
-
-  // --- Auto-locate on Load ---
+  const coordDiv = document.getElementById("user-coordinates");
   view.when(() => {
-    const coordDiv = document.getElementById("user-coordinates");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
         const { latitude, longitude } = pos.coords;
@@ -49,7 +44,6 @@ require([
           }
         });
         view.graphics.add(userPoint);
-
         if (coordDiv) coordDiv.textContent = `Your Location: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
       }, () => {
         if (coordDiv) coordDiv.textContent = "Location access denied.";
@@ -59,7 +53,6 @@ require([
     }
   });
 
-  // --- Symbols ---
   const sagipDot = { type: "simple-marker", color: "rgb(182,0,1)", size: 12, outline: { color: "white", width: 1 } };
   const waterDot = { type: "simple-marker", color: "rgb(0,184,244)", size: 12, outline: { color: "white", width: 1 } };
   const monitorDot = { type: "simple-marker", color: "black", size: 12, outline: { color: "white", width: 1 } };
@@ -73,7 +66,7 @@ require([
       attributes: {
         ObjectID: 1,
         Name: "SAGIP Station",
-        Description: "Esp32 microcontroller powered by Solar Panel (Status: Active)"
+        Description: "Esp32 microcontroller powered by Solar Panel (Status:  🟢 Active)"
       }
     },
     {
@@ -82,7 +75,7 @@ require([
       attributes: {
         ObjectID: 2,
         Name: "Water Level Monitoring",
-        Description: "Focused sensor for real-time water level detection (Status: Active)"
+        Description: "Focused sensor for real-time water level detection (Status:  🟢 Active)"
       }
     },
     {
@@ -91,133 +84,104 @@ require([
       attributes: {
         ObjectID: 3,
         Name: "SAGIP Monitor",
-        Description: "Focused monitoring - Dashboard (Status: Active)"
+        Description: "Focused monitoring - Dashboard (Status:  🟢 Active)"
       }
     }
   ];
 
   let stationLayer = createStationLayer(graphics);
-map.add(stationLayer);
+  map.add(stationLayer);
 
-const legend = new Legend({
-  view: view,
-  layerInfos: [{ layer: stationLayer, title: "Monitoring Stations" }]
-});
-view.ui.add(legend, "bottom-left");
-
-// --- Admin check ---
-const isAdmin = localStorage.getItem("role") === "admin";
-
-// --- Tooltip setup ---
-const tooltip = document.createElement("div");
-tooltip.style.position = "absolute";
-tooltip.style.padding = "10px 20px";
-tooltip.style.background = "white";
-tooltip.style.color = "black";
-tooltip.style.borderRadius = "4px";
-tooltip.style.pointerEvents = "none";
-tooltip.style.fontSize = "13px";
-tooltip.style.display = "none";
-tooltip.style.zIndex = "1000";
-document.body.appendChild(tooltip);
-
-let tooltipPinned = false;
-
-
-// --- Hover logic ---
-view.on("pointer-move", function (event) {
-  if (tooltipPinned) return; // 🔒 don't move tooltip if it's pinned for editing
-
-  view.hitTest(event).then(function (response) {
-    const graphic = response.results.find(result => {
-      const attr = result.graphic?.attributes;
-      return attr && (attr.Description || attr.Name);
-    });
-
-    if (graphic) {
-      showTooltip(graphic.graphic, event.x, event.y);
-    } else {
-      tooltip.style.display = "none";
-    }
+  const legend = new Legend({
+    view: view,
+    layerInfos: [{ layer: stationLayer, title: "Monitoring Stations" }]
   });
-});
+  view.ui.add(legend, "bottom-left");
 
+  const isAdmin = localStorage.getItem("role") === "admin";
 
-view.on("click", function (event) {
-  view.hitTest(event).then(function (response) {
-    const graphic = response.results.find(result => {
-      const attr = result.graphic?.attributes;
-      return attr && (attr.Description || attr.Name);
-    });
-
-    if (graphic) {
-      tooltipPinned = true;
-      showTooltip(graphic.graphic, event.x, event.y, true); // pass true to show edit
-    } else {
-      tooltipPinned = false;
-      tooltip.style.display = "none";
-    }
+  const tooltip = document.createElement("div");
+  Object.assign(tooltip.style, {
+    position: "absolute",
+    padding: "10px 20px",
+    background: "white",
+    color: "black",
+    borderRadius: "4px",
+    pointerEvents: "none",
+    fontSize: "13px",
+    display: "none",
+    zIndex: "1000"
   });
-});
+  document.body.appendChild(tooltip);
+  let tooltipPinned = false;
 
-function showTooltip(graphic, x, y, allowEdit = false) {
-  const name = graphic.attributes?.Name || graphic.getAttribute("Name") || "Unknown";
-  const desc = graphic.attributes?.Description || graphic.getAttribute("Description") || "";
-
-  tooltip.style.display = "block";
-  tooltip.style.left = `${Math.min(x + 0, window.innerWidth - 350)}px`;
-  tooltip.style.top = `${Math.min(y + 10, window.innerHeight - 220)}px`;
-  
-
-  if (isAdmin && allowEdit) {
-    tooltip.innerHTML = `
-      <div>
-        <span class="fw-bold">${name}</span><br>
-        <span id="desc-text">${desc}</span><br>
-        <button class="btn btn-sm btn-outline-primary mt-1" id="editMarkerBtn">Edit</button>
-        <button class="btn btn-sm btn-outline-secondary mt-1 ms-1" id="closeTooltipBtn">Close</button>
-      </div>
-    `;
-
-    setTimeout(() => {
-      document.getElementById("editMarkerBtn").addEventListener("click", () => {
-        const newDesc = prompt("Enter new description:", desc);
-        if (newDesc !== null) {
-          graphic.attributes.Description = newDesc;
-          document.getElementById("desc-text").textContent = newDesc;
-        }
-
-        const newColor = prompt("Enter new color:", graphic.symbol.color);
-        if (newColor) {
-          graphic.symbol.color = newColor;
-          stationLayer.applyEdits({ updateFeatures: [graphic] });
-
-        }
+  view.on("pointer-move", function (event) {
+    if (tooltipPinned) return;
+    view.hitTest(event).then(function (response) {
+      const graphic = response.results.find(result => {
+        const attr = result.graphic?.attributes;
+        return attr && (attr.Description || attr.Name);
       });
+      tooltip.style.display = graphic ? "block" : "none";
+      if (graphic) showTooltip(graphic.graphic, event.x, event.y);
+    });
+  });
 
-      document.getElementById("closeTooltipBtn").addEventListener("click", () => {
-        tooltipPinned = false;
-        tooltip.style.display = "none";
+  view.on("click", function (event) {
+    view.hitTest(event).then(function (response) {
+      const graphic = response.results.find(result => {
+        const attr = result.graphic?.attributes;
+        return attr && (attr.Description || attr.Name);
       });
-    }, 0);
-  } else {
-    tooltip.innerHTML = `
-      <div>
-        <span class="fw-bold">${name}</span><br>${desc}
-      </div>
-    `;
+      tooltipPinned = !!graphic;
+      tooltip.style.display = graphic ? "block" : "none";
+      if (graphic) showTooltip(graphic.graphic, event.x, event.y, true);
+    });
+  });
+
+  function showTooltip(graphic, x, y, allowEdit = false) {
+    const name = graphic.attributes?.Name || "Unknown";
+    const desc = graphic.attributes?.Description || "";
+
+    tooltip.style.left = `${Math.min(x, window.innerWidth - 250)}px`;
+    tooltip.style.top = `${Math.min(y, window.innerHeight - 420)}px`;
+
+    if (isAdmin && allowEdit) {
+      tooltip.innerHTML = `
+        <div>
+          <span class="fw-bold">${name}</span><br>
+          <span id="desc-text">${desc}</span><br>
+          <button class="btn btn-sm btn-outline-primary mt-1" id="editMarkerBtn">Edit</button>
+          <button class="btn btn-sm btn-outline-secondary mt-1 ms-1" id="closeTooltipBtn">Close</button>
+        </div>
+      `;
+
+      setTimeout(() => {
+        document.getElementById("editMarkerBtn")?.addEventListener("click", () => {
+          const newDesc = prompt("Enter new description:", desc);
+          if (newDesc !== null) {
+            graphic.attributes.Description = newDesc;
+            document.getElementById("desc-text").textContent = newDesc;
+          }
+
+          const newColor = prompt("Enter new color (CSS format):", graphic.symbol?.color || "rgb(0,0,255)");
+          if (newColor && graphic.symbol) graphic.symbol.color = newColor;
+
+          stationLayer.applyEdits({ updateFeatures: [graphic] })
+            .then(() => alert("Marker updated."))
+            .catch(err => console.error("Edit failed:", err));
+        });
+
+        document.getElementById("closeTooltipBtn")?.addEventListener("click", () => {
+          tooltipPinned = false;
+          tooltip.style.display = "none";
+        });
+      }, 0);
+    } else {
+      tooltip.innerHTML = `<div><span class="fw-bold">${name}</span><br>${desc}</div>`;
+    }
   }
-}
-if (newDesc !== null) {
-  graphic.attributes.Description = newDesc;
-  document.getElementById("desc-text").textContent = newDesc;
-  stationLayer.applyEdits({ updateFeatures: [graphic] });
-  alert("Marker updated.");
-}
 
-
-
-  // --- Heat Zones ---
   const heatZoneGraphic = new Graphic({
     geometry: {
       type: "polygon",
@@ -264,21 +228,44 @@ if (newDesc !== null) {
     }
   });
 
-  // --- Station Filter ---
-  document.getElementById("stationFilter").addEventListener("change", function () {
-    const selected = this.value;
-    map.remove(stationLayer);
-
-    if (selected === "Hide All") {
-      legend.layerInfos = [];
-      return;
-    }
-
-    const filtered = selected === "All" ? graphics : graphics.filter(g => g.attributes.Name === selected);
-    stationLayer = createStationLayer(filtered);
-    map.add(stationLayer);
-    legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
+  require(["esri/geometry/Point"], function (Point) {
+    document.getElementById("stationFilter").addEventListener("change", function () {
+      const selected = this.value;
+      map.remove(stationLayer);
+  
+      if (selected === "Hide All") {
+        legend.layerInfos = [];
+        return;
+      }
+  
+      const filtered = selected === "All"
+        ? graphics
+        : graphics.filter(g => g.attributes.Name === selected);
+  
+      stationLayer = createStationLayer(filtered);
+      map.add(stationLayer);
+      legend.layerInfos = [{ layer: stationLayer, title: "Monitoring Stations" }];
+  
+      if (filtered.length === 1) {
+        const geom = filtered[0].geometry;
+        const point = new Point({
+          longitude: geom.longitude,
+          latitude: geom.latitude,
+          spatialReference: { wkid: 4326 } // Make sure it's WGS84
+        });
+  
+        view.whenLayerView(stationLayer).then(() => {
+          view.goTo({
+            target: point,
+            scale: 1500
+          });
+        });
+      }
+    });
   });
+  
+  
+  
 
   function createStationLayer(sourceGraphics) {
     return new FeatureLayer({
@@ -296,7 +283,7 @@ if (newDesc !== null) {
         { name: "Name", type: "string" },
         { name: "Description", type: "string" }
       ],
-      outFields: ["*"], 
+      outFields: ["*"],
       objectIdField: "ObjectID",
       geometryType: "point",
       spatialReference: { wkid: 4326 },
@@ -311,9 +298,7 @@ if (newDesc !== null) {
       }
     });
   }
-  
 
-  // --- Evacuation Zones ---
   const evacuationGraphics = [
     {
       geometry: { type: "point", longitude: 120.99064047179301, latitude: 14.50293698857822 },
@@ -337,37 +322,8 @@ if (newDesc !== null) {
 
   document.getElementById("toggleEvacuationZone").addEventListener("click", function () {
     evacuationVisible = !evacuationVisible;
-
     if (evacuationVisible) {
-      evacuationLayer = new FeatureLayer({
-        source: evacuationGraphics.map(g => new Graphic({
-          geometry: g.geometry,
-          symbol: g.symbol,
-          attributes: g.attributes,
-          popupTemplate: {
-            title: "{Name}",
-            content: "{Description}"
-          }
-        })),
-        fields: [
-          { name: "ObjectID", type: "oid" },
-          { name: "Name", type: "string" },
-          { name: "Description", type: "string" }
-        ],
-        outFields: ["*"], 
-        objectIdField: "ObjectID",
-        geometryType: "point",
-        spatialReference: { wkid: 4326 },
-        renderer: {
-          type: "unique-value",
-          field: "Name",
-          uniqueValueInfos: evacuationGraphics.map(g => ({
-            value: g.attributes.Name,
-            symbol: g.symbol,
-            label: g.attributes.Name
-          }))
-        }
-      });
+      evacuationLayer = createStationLayer(evacuationGraphics);
       map.remove(stationLayer);
       map.add(evacuationLayer);
       legend.layerInfos = [{ layer: evacuationLayer, title: "Evacuation Zones" }];
@@ -380,3 +336,4 @@ if (newDesc !== null) {
   });
 
 });
+

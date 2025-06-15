@@ -1,5 +1,5 @@
 <?php
-$host = '192.168.100.102';     
+$host = '192.168.1.75';         
 $user = 'sagip';       
 $pass = 'superchong21';    
 $db   = 'weatherdb';       

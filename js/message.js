@@ -23,20 +23,15 @@ if (role === "null" || !role) role = null;
 sendButton.addEventListener("click", (e) => {
   e.preventDefault();
   const message = messageInput.value.trim();
-
-  // ✅ Allow both admin and regular users
-  if(username === null){
-    username = "Admin";
-    return message;
-  }
-
   if (!message) return;
 
-  // ✅ Send using actual username (not "Admin" label)
+  // ✅ Force admin's username to be "Admin" (not "sagip" or others)
+  const displayName = role === "admin" ? "Admin" : username;
+
   fetch("/SAGIP-Dashboard/handlers/chat/chat.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `username=${encodeURIComponent(username)}&message=${encodeURIComponent(message)}&recipient=${encodeURIComponent(currentChatTarget || "")}`
+    body: `username=${encodeURIComponent(displayName)}&message=${encodeURIComponent(message)}&recipient=${encodeURIComponent(currentChatTarget || "")}`
   })
     .then(res => res.text())
     .then(txt => {
@@ -44,6 +39,7 @@ sendButton.addEventListener("click", (e) => {
       messageInput.value = "";
     });
 });
+
 
   function loadMessages() {
     const shouldScroll =

@@ -59,58 +59,49 @@ document.getElementById("submitLogin").addEventListener("click", function () {
   const usernameError = document.getElementById("loginUsernameError");
   const passwordError = document.getElementById("loginPasswordError");
 
-  // Clear previous errors
   usernameError.textContent = "";
   passwordError.textContent = "";
 
-  let hasError = false;
-
-  // Client-side validation
   if (!username) {
     usernameError.textContent = "Username is required.";
-    hasError = true;
+    return;
   }
-
   if (!password) {
     passwordError.textContent = "Password is required.";
-    hasError = true;
+    return;
   }
-
-  if (hasError) return;
 
   fetch("/SAGIP-Dashboard/handlers/submit-user/login.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
   })
-    .then(res => res.text())
-    .then(msg => {
-      const trimmedMsg = msg.trim();
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("role", data.role);
 
-      if (trimmedMsg === "success") {
-        localStorage.setItem("username", username);
-        localStorage.setItem("role", "user");
-        window.location.href = "/SAGIP-Dashboard/pages/Home/home.php";
-      } else if (trimmedMsg === "❌ Incorrect password.") {
-        passwordError.textContent = "Incorrect password.";
-      } else if (trimmedMsg === "❌ Account not found.") {
-        usernameError.textContent = "Account not found.";
-      } else if (trimmedMsg === "❌ Missing input.") {
-        usernameError.textContent = "Please fill in both fields.";
+        const redirect = data.role === "admin"
+          ? "/SAGIP-Dashboard/pages/Home/home-admin.php"
+          : "/SAGIP-Dashboard/pages/Home/home.php";
+
+        window.location.href = redirect;
       } else {
-        usernameError.textContent = trimmedMsg; // fallback for unknown error
+        const msg = data.message;
+        if (msg.includes("password")) {
+          passwordError.textContent = msg;
+        } else {
+          usernameError.textContent = msg;
+        }
       }
     });
 });
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("user").addEventListener("click", function (e) {
-    e.preventDefault();
-    const authModal = new bootstrap.Modal(document.getElementById("authModal"));
-    authModal.show();
-  });
 
   document.getElementById("openSignup").addEventListener("click", function () {
     const signupModal = new bootstrap.Modal(document.getElementById("signupModal"));
@@ -122,38 +113,5 @@ document.addEventListener("DOMContentLoaded", function () {
     loginModal.show();
   });
 
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const adminBtn = document.getElementById("admin");
-  const passModal = new bootstrap.Modal(document.getElementById("passModal"));
-  const submitAdminPassword = document.getElementById("submitAdminPassword");
-  const adminPasswordInput = document.getElementById("adminPasswordInput");
-
-  // Optional: inline error display
-  const errorDisplay = document.createElement("div");
-  errorDisplay.className = "text-danger mt-2 small";
-  adminPasswordInput.insertAdjacentElement("afterend", errorDisplay);
-
-  adminBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    errorDisplay.textContent = ""; // Clear previous errors
-    adminPasswordInput.value = ""; // Reset input
-    passModal.show();
-  });
-
-  submitAdminPassword.addEventListener("click", function () {
-    const password = adminPasswordInput.value.trim();
-    const correctPassword = "superchong21";
-
-    if (password === correctPassword) {
-      localStorage.setItem("username", "Admin");  // or any internal ID you want
-      localStorage.setItem("role", "admin");
-      localStorage.removeItem("username"); // optional: clear user info
-      window.location.href = "/SAGIP-Dashboard/pages/Home/home-admin.php";
-    } else {
-      errorDisplay.textContent = "❌ Incorrect password.";
-    }
-  });
 });
 

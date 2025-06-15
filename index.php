@@ -22,33 +22,19 @@
         <div class="p-3 col-12 col-md-8 col-lg-6">
             <div class="row g-4 justify-content-center">
                 <div class="col-12 col-sm-6">
-                    <a class="btn btn-danger p-3 btn-lg w-100 d-flex align-items-center justify-content-center button-glow" id="user" href="#">
-                        <i class="bi bi-person me-2"></i>User
+                    <a class="btn btn-danger p-3 btn-lg w-100 d-flex align-items-center justify-content-center button-glow" id="openSignup" href="#">
+                        <i class="bi bi-person me-2"></i>Sign Up
                     </a>
                 </div>
                 <div class="col-12 col-sm-6">
-                    <a class="btn btn-secondary p-3 btn-lg w-100 d-flex align-items-center justify-content-center button-glow" id="admin" href="#">
-                        <i class="bi bi-person-lock me-2"></i>Admin
+                    <a class="btn btn-secondary p-3 btn-lg w-100 d-flex align-items-center justify-content-center button-glow" id="openLogin" href="#">
+                        <i class="bi bi-person-lock me-2"></i>Log In
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-3">
-                <div class="modal-header">
-                    <h5 class="modal-title">User Authentication</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center d-flex gap-3">
-                    <button class="btn btn-danger w-100 p-3" id="openSignup">Sign Up</button>
-                    <button class="btn btn-secondary w-100 p-3" id="openLogin">Log In</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="signupModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -100,7 +86,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="submitSignup">Sign Up</button>
+                    <button class="btn btn-danger" id="submitSignup">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -126,29 +112,13 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="submitLogin">Log In</button>
+                    <button class="btn btn-danger" id="submitLogin">Log In</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="passModalLabel">Admin Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="password" id="adminPasswordInput" class="form-control" placeholder="Enter Password" required />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="submitAdminPassword">Continue</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/SAGIP-Dashboard/js/auth.js"></script>
