@@ -31,14 +31,16 @@
             <div class="card shadow-lg border-0 rounded-3 camera-card">
                 <div class="card-body p-0 position-relative d-flex justify-content-center align-items-center">
                     <div class="red-dot live-indicator position-absolute top-0 start-0 m-3 pulse"></div>
-                    <iframe 
-                        src="http://192.168.1.81:8080/SAGIP-Dashboard/assets/opencv.mp4" 
-                        title="Live Camera Feed"
-                        allow="autoplay; camera"
-                        loading="lazy"
-                        class="camera-iframe rounded-3 w-100 h-100" 
-                        style="min-height: 250px; border: none;">
-                    </iframe>
+                    <video
+                    src="http://192.168.1.81:8080/SAGIP-Dashboard/assets/opencv.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    class="camera-iframe rounded-3 w-100 h-100"
+                    style="min-height: 250px; border: none; background-color: black; width: 100%;">
+                    Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="card-footer bg-white text-center py-3">
                     <p class="mb-0 text-muted small">Real-time surveillance from SAGIP Station.</p>

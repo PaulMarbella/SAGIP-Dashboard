@@ -1,7 +1,7 @@
 let waterChart;
 
 document.getElementById("waterLevelModal").addEventListener("shown.bs.modal", () => {
-  fetch("/SAGIP-Dashboard/handlers/weather/waterlevel.php")
+  fetch("/SAGIP-Dashboard/handlers/weather/waterleveldataset.php")
     .then(res => res.json())
     .then(data => {
       // Handle error from PHP
@@ -13,7 +13,14 @@ document.getElementById("waterLevelModal").addEventListener("shown.bs.modal", ()
       // Normalize to array if single object
       const chartData = Array.isArray(data) ? data : [data];
 
-      const labels = chartData.map(row => row.timestamp);
+      const labels = chartData.map(row => {
+        const date = new Date(row.timestamp);
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const yyyy = date.getFullYear();
+        return `${mm}/${dd}/${yyyy}`;
+      });
+      
       const values = chartData.map(row => parseInt(row.water_mm));
 
       const ctx = document.getElementById("waterLevelLineChart").getContext("2d");
